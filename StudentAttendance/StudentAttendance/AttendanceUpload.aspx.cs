@@ -15,8 +15,11 @@ namespace StudentAttendance
         string AttendanceDate, inTime, outTime, student_unique_id;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session.Clear();
-            GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            if (!IsPostBack)
+            {
+                Session.Clear();
+                GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+            }
 
         }
 
