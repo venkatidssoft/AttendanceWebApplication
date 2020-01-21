@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -7,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace StudentAttendance
 {
-    public partial class SiteMaster : MasterPage
+    public partial class Report : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -15,20 +16,15 @@ namespace StudentAttendance
             {
                 if (Session["id"] == null)
                 {
+                    Session.Clear();
                     Response.Redirect("login.aspx");
                 }
                 else
                 {
-                    Label1.Text = Session["username"].ToString();
+                    GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
                 }
             }
-            
-        }
-        public void onclick()
-        {
-            Session.Clear();
-            Response.Redirect("login.aspx");
-            
+
         }
     }
 }

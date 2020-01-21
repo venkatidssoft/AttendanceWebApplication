@@ -17,10 +17,16 @@ namespace StudentAttendance
         {
             if (!IsPostBack)
             {
-                Session.Clear();
-                GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                if (Session["id"] == null)
+                {
+                    Session.Clear();
+                    Response.Redirect("login.aspx");
+                }
+                else
+                {
+                    GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
+                }
             }
-
         }
 
         protected void Button1_Click(object sender, EventArgs e)
