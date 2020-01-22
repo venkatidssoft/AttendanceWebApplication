@@ -12,27 +12,33 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
 
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <style type="text/css">
         .footer {
-    position: fixed;
-    height: 50px;
-    background-color: #02639F;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    margin-bottom: 0px;
-    margin-top:2px;
-}
+            position: fixed;
+            height: 50px;
+            background-color: #02639F;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin-bottom: 0px;
+            margin-top: 2px;
+        }
+
         .p-footer {
-    margin: 14px 0 10px;
-    text-align:center;
-}
+            margin: 14px 0 10px;
+            text-align: center;
+        }
+
         .navbar-inverse {
-    background-color: #02639F;
-    border-color: #080808;
-}
+            background-color: #02639F;
+            border-color: #080808;
+        }
+
+            .navbar-inverse .navbar-brand {
+                color: white;
+            }
     </style>
 </head>
 <body>
@@ -74,13 +80,14 @@
                         <li><a runat="server" href="AttendanceUpload.aspx">Attendance Upload</a></li>
                         <li><a runat="server" href="Report.aspx">Report</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <li><a runat="server" href="Login.aspx" >Logout</a></li>
+                        <li><a runat="server" href="Login.aspx">Logout</a></li>
                     </ul>
-                    <div style="text-align:right;margin-top:15px;color:white;">Username : 
-                    <asp:Label ID="Label1" runat="server" ></asp:Label>
-                        </div>
+                    <div style="text-align: right; margin-top: 15px; color: white;">
+                        Username : 
+                    <asp:Label ID="Label1" runat="server"></asp:Label>
+                    </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="container body-content">

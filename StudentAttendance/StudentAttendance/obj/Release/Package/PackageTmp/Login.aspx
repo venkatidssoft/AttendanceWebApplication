@@ -121,6 +121,50 @@
                 color: #fff;
             }
     </style>
+    <%--spinner code--%>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        function ShowProgress() {
+            setTimeout(function () {
+                var modal = $('<div />');
+                modal.addClass("modal");
+                $('body').append(modal);
+                var loading = $(".loading");
+                loading.show();
+                var top = Math.max($(window).height() / 2 - loading[0].offsetHeight / 2, 0);
+                var left = Math.max($(window).width() / 2 - loading[0].offsetWidth / 2, 0);
+                loading.css({ top: top, left: left });
+            }, 200);
+        }
+        $('form').live("submit", function () {
+            ShowProgress();
+        });
+    </script>
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 99;
+            opacity: 0.8;
+            filter: alpha(opacity=80);
+            -moz-opacity: 0.8;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .loading {
+            font-family: Arial;
+            font-size: 10pt;
+            width: 200px;
+            height: 100px;
+            display: none;
+            position: fixed;
+            background-color: White;
+            z-index: 999;
+        }
+    </style>
 </head>
 <body>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -143,13 +187,13 @@
                             <asp:TextBox ID="txtpassword" runat="server" class="form-control" TextMode="Password"></asp:TextBox>
                         </div>
                         <div class="form-check">
-                            <asp:Button ID="btnlogin" runat="server" Text="Login" class="btn btn-login float-right" OnClick="btnlogin_Click"/>
+                            <asp:Button ID="btnlogin" runat="server" Text="Login" class="btn btn-login float-right" OnClick="btnlogin_Click" />
                         </div>
                         <div class="form-group">
-                            <asp:Label ID="lblError" runat="server" ForeColor="Red" ></asp:Label>
+                            <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
                         </div>
                     </form>
-                    <div class="copy-text">Created with <i ></i></div>
+                    <div class="copy-text"><i></i></div>
                 </div>
                 <div class="col-md-8 banner-sec">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -160,7 +204,7 @@
                         </ol>
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
-                                <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
+                                <img class="d-block img-fluid" src="Images/3.jpg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
                                         <%--<h2>This is Heaven</h2>
@@ -169,7 +213,7 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide">
+                                <img class="d-block img-fluid" src="Images/5.jpg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
                                         <%--<h2>This is Heaven</h2>
@@ -178,10 +222,10 @@
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img class="d-block img-fluid" src="https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg" alt="First slide">
+                                <img class="d-block img-fluid" src="Images/7.jpg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
-                                <%--        <h2>This is Heaven</h2>
+                                        <%--        <h2>This is Heaven</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>--%>
                                     </div>
                                 </div>
@@ -191,5 +235,10 @@
                 </div>
             </div>
     </section>
+                <div class="loading" align="center">
+                    <br />
+                    <img src="Images/lodingfinal.gif" alt="" />
+                </div>
+
 </body>
 </html>

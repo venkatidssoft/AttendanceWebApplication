@@ -129,6 +129,11 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="homepage.aspx" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\5.jpg" />
+    <Content Include="Images\6.png" />
+    <Content Include="Images\7.jpg" />
+    <Content Include="Images\lodingfinal.gif" />
     <Content Include="Login.aspx" />
     <Content Include="Report.aspx" />
     <Content Include="Scripts\bootstrap.js" />

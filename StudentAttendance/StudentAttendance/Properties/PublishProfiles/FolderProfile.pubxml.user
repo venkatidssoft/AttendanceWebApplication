@@ -199,10 +199,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2018 13:38:24</publishTime>
     </File>
     <File Include="bin/StudentAttendance.dll">
-      <publishTime>01/21/2020 22:43:39</publishTime>
+      <publishTime>01/22/2020 22:59:21</publishTime>
     </File>
     <File Include="bin/StudentAttendance.pdb">
-      <publishTime>01/21/2020 22:43:39</publishTime>
+      <publishTime>01/22/2020 22:59:21</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
       <publishTime>02/11/2014 15:26:04</publishTime>
@@ -270,11 +270,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="homepage.aspx">
       <publishTime>01/21/2020 21:36:12</publishTime>
     </File>
+    <File Include="Images/3.jpg">
+      <publishTime>01/22/2020 20:10:51</publishTime>
+    </File>
+    <File Include="Images/5.jpg">
+      <publishTime>01/22/2020 20:10:51</publishTime>
+    </File>
+    <File Include="Images/6.png">
+      <publishTime>01/22/2020 20:10:51</publishTime>
+    </File>
+    <File Include="Images/7.jpg">
+      <publishTime>01/22/2020 20:18:01</publishTime>
+    </File>
+    <File Include="Images/lodingfinal.gif">
+      <publishTime>01/22/2020 21:29:01</publishTime>
+    </File>
     <File Include="Login.aspx">
-      <publishTime>01/21/2020 16:52:48</publishTime>
+      <publishTime>01/22/2020 22:25:58</publishTime>
     </File>
     <File Include="Report.aspx">
-      <publishTime>01/21/2020 21:40:25</publishTime>
+      <publishTime>01/22/2020 22:58:12</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/20/2020 22:40:58</publishTime>
@@ -367,7 +382,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/20/2020 22:41:01</publishTime>
     </File>
     <File Include="Site.Master">
-      <publishTime>01/21/2020 22:30:36</publishTime>
+      <publishTime>01/22/2020 22:49:04</publishTime>
     </File>
     <File Include="Site.Mobile.Master">
       <publishTime>01/20/2020 22:41:02</publishTime>

@@ -18,10 +18,12 @@ namespace StudentAttendance
             Session.Clear();
             GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             txtusername.Focus();
+            string script = "$(document).ready(function () { $('[id*=btngeneratereport]').click(); });";
         }
 
         protected void btnlogin_Click(object sender, EventArgs e)
         {
+            string script = "$(document).ready(function () { $('[id*=btnlogin]').click(); });";
             MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
             try
             {
