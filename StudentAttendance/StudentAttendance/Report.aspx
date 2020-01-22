@@ -169,7 +169,7 @@
     </div>
     <br />
     <div class="row">
-        <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No data in the data source." Width="100%">
+        <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%">
             <Columns>
                 <asp:BoundField DataField="District" HeaderText="District Name"  />
                 <asp:BoundField DataField="Mandal" HeaderText="No of Mandals" />
