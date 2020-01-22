@@ -2,16 +2,18 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
+    <h3>Intuitive Data Solutions Pvt. Ltd.</h3>
     <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
+        Trendz Utility,Plot No.25,<br />
+        Survey No.37- 41, 3rd Floor, Gafoor Nagar,<br />
+        Vittal Rao Nagar Road, Madhapur,Hyderabad,<br />
+        <abbr title="Telephone Number">Tel:</abbr>
+        +91 40405 27700,<br />
+        <abbr title="Sales Number">Sales:</abbr>
+        +91 40405 27733.
     </address>
 
     <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        <strong>Support:</strong>   <a href="info@idssoft.com">info@idssoft.com</a><br />
     </address>
 </asp:Content>

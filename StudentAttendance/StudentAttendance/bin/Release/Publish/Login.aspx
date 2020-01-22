@@ -7,10 +7,10 @@
     <title></title>
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 
@@ -123,36 +123,33 @@
     </style>
 </head>
 <body>
-    <%--<form id="form1" runat="server">
-        <div>
-        </div>
-    </form>--%>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
     <section class="login-block">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 login-sec">
                     <h2 class="text-center">Login Now</h2>
-                    <form class="login-form">
+                    <form class="login-form" runat="server">
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="text-uppercase">Username</label>
-                            <input type="text" class="form-control" placeholder="">
+                            <asp:TextBox ID="txtusername" runat="server" class="form-control"></asp:TextBox>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1" class="text-uppercase">Password</label>
-                            <input type="password" class="form-control" placeholder="">
+                            <asp:TextBox ID="txtpassword" runat="server" class="form-control" TextMode="Password"></asp:TextBox>
                         </div>
-
-
                         <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input">
-                                <small>Remember Me</small>
-                            </label>
-                            <button type="submit" class="btn btn-login float-right">Submit</button>
+                            <asp:Button ID="btnlogin" runat="server" Text="Login" class="btn btn-login float-right" OnClick="btnlogin_Click"/>
                         </div>
-
+                        <div class="form-group">
+                            <asp:Label ID="lblError" runat="server" ForeColor="Red" ></asp:Label>
+                        </div>
                     </form>
-                    <div class="copy-text">Created with <i class="fa fa-heart"></i>by Grafreez</div>
+                    <div class="copy-text">Created with <i ></i></div>
                 </div>
                 <div class="col-md-8 banner-sec">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -166,8 +163,8 @@
                                 <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
-                                        <h2>This is Heaven</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                        <%--<h2>This is Heaven</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>--%>
                                     </div>
                                 </div>
                             </div>
@@ -175,8 +172,8 @@
                                 <img class="d-block img-fluid" src="https://images.pexels.com/photos/7097/people-coffee-tea-meeting.jpg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
-                                        <h2>This is Heaven</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                        <%--<h2>This is Heaven</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>--%>
                                     </div>
                                 </div>
                             </div>
@@ -184,13 +181,12 @@
                                 <img class="d-block img-fluid" src="https://images.pexels.com/photos/872957/pexels-photo-872957.jpeg" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
                                     <div class="banner-text">
-                                        <h2>This is Heaven</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                                <%--        <h2>This is Heaven</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>--%>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

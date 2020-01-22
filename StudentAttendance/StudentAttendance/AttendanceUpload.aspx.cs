@@ -87,11 +87,11 @@ namespace StudentAttendance
                     TimeZoneInfo timeZoneInfo;
                     DateTime dateTime;
                     //Set the time zone information to US Mountain Standard Time 
-                    timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                     //Get date and time in US Mountain Standard Time 
                     dateTime = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo);
 
-                    cmdInsert.Parameters.AddWithValue("@AttendanceDate", dateTime.ToString("yyyy-MM-dd HH-mm-ss"));
+                    cmdInsert.Parameters.AddWithValue("@AttendanceDate", dateTime.ToString("dd-MM-yyyy HH-mm-ss"));
                         cmdInsert.Parameters.AddWithValue("@inTime", this.inTime);
                         cmdInsert.Parameters.AddWithValue("@outTime", this.outTime);
                         cmdInsert.Parameters.AddWithValue("@student_unique_id", this.student_unique_id);

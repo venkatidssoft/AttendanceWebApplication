@@ -26,5 +26,10 @@ namespace StudentAttendance
             }
 
         }
+
+        protected void btngeneratereport_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
