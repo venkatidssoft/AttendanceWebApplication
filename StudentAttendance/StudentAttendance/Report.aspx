@@ -164,7 +164,17 @@
     <div class="row" style="text-align:center;">
         <asp:Button ID="btngeneratereport" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click"/>
     </div>
+    <br />
     <div class="row">
-        <asp:GridView ID="GridView1" runat="server" ShowHeaderWhenEmpty="true" EmptyDataText="No data in the data source."></asp:GridView>
+        <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No data in the data source." Width="100%">
+            <Columns>
+                 <asp:BoundField DataField="District" HeaderText="District Name"  />
+                <asp:BoundField DataField="Mandal" HeaderText="Mandal Name" />
+                <asp:BoundField DataField="No of Schools" HeaderText="No of Schools" />
+                <asp:BoundField DataField="Total Students" HeaderText="Total Students" />
+                <asp:BoundField DataField="Total Present" HeaderText="Total Present" />
+                <asp:BoundField DataField="Total Absent" HeaderText="Total Absent" />
+            </Columns>
+        </asp:GridView>
     </div>
 </asp:Content>
