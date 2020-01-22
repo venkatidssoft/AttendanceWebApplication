@@ -13,6 +13,7 @@ namespace StudentAttendance
 {
     public partial class Report : System.Web.UI.Page
     {
+        string sqlQueryString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -37,7 +38,12 @@ namespace StudentAttendance
             MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
             try
             {
-                using (MySqlCommand cmd = new MySqlCommand("select sr.student_district as 'District',sr.student_mandal as 'Mandal' ,Count(sr.student_school) as 'No of Schools',count(sr.student_unique_id) as 'Total Students',count(sa.student_unique_id) as 'Total Present',(count(sr.student_unique_id)-count(sa.student_unique_id)) as 'Total Absent'from student_registration sr,student_attendance sa where sa.inTime is NOT null and sr.student_unique_id=sa.student_unique_id and student_mandal='" + ddlMandal.SelectedItem + "'  AND  sr.student_medium='" + ddlMedium.SelectedItem + "' group by sr.student_district,sr.student_mandal,sr.student_school"))
+                if (ddlDistrict.SelectedItem.ToString() == "All" && ddlMandal.SelectedItem.ToString()=="All" && ddlSchool.SelectedItem.ToString() == "All" && ddlGender.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
+                {
+                    sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration) AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration) AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = 'kadapa') as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = 'kadapa')-count(sa.student_unique_id)) as 'Total Absent' from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id AND sr.student_district = 'kadapa' group by sr.student_district ";
+                    //this.grdreport.Columns[1].Visible = false;
+                }
+                using (MySqlCommand cmd = new MySqlCommand(sqlQueryString))
                 {
                     using (MySqlDataAdapter sda = new MySqlDataAdapter())
                     {
@@ -52,7 +58,6 @@ namespace StudentAttendance
                             {
                                 grdreport.DataSource = dt;
                                 grdreport.DataBind();
-                                //this.grdreport.Columns[0].Visible = false;
                             }
                             else
                             {

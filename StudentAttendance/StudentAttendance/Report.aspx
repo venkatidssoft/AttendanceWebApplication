@@ -104,25 +104,6 @@
             </asp:DropDownList>
         </div>
         <div class="col-md-2">
-            Select Location
-            <asp:DropDownList ID="ddlLocation" runat="server" class="form-control">
-                <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Pulivendula</asp:ListItem>
-                <asp:ListItem>Badvel</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-2">
-            Select Gender
-            <asp:DropDownList ID="ddlGender" runat="server" class="form-control">
-                <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Male</asp:ListItem>
-                <asp:ListItem>Female</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-2">
             Select Class
             <asp:DropDownList ID="ddlClass" runat="server" class="form-control">
                 <asp:ListItem>All</asp:ListItem>
@@ -138,6 +119,28 @@
                 <asp:ListItem>Class 10</asp:ListItem>
             </asp:DropDownList>
         </div>
+
+
+        <div class="col-md-2">
+            Select Gender
+            <asp:DropDownList ID="ddlGender" runat="server" class="form-control">
+                <asp:ListItem>All</asp:ListItem>
+                <asp:ListItem>Male</asp:ListItem>
+                <asp:ListItem>Female</asp:ListItem>
+            </asp:DropDownList>
+        </div>
+    </div>
+    <br />
+    <%--<div class="row">
+                <div class="col-md-2">
+            Select Location
+            <asp:DropDownList ID="ddlLocation" runat="server" class="form-control">
+                <asp:ListItem>All</asp:ListItem>
+                <asp:ListItem>Pulivendula</asp:ListItem>
+                <asp:ListItem>Badvel</asp:ListItem>
+            </asp:DropDownList>
+        </div>
+        
         <div class="col-md-2">
             Select Medium
             <asp:DropDownList ID="ddlMedium" runat="server" class="form-control">
@@ -159,8 +162,8 @@
                 <asp:ListItem>G</asp:ListItem>
             </asp:DropDownList>
         </div>
-    </div>
-    <br />
+    </div>--%>
+    <%--<br />--%>
     <div class="row" style="text-align:center;">
         <asp:Button ID="btngeneratereport" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click"/>
     </div>
@@ -168,9 +171,9 @@
     <div class="row">
         <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No data in the data source." Width="100%">
             <Columns>
-                 <asp:BoundField DataField="District" HeaderText="District Name"  />
-                <asp:BoundField DataField="Mandal" HeaderText="Mandal Name" />
-                <asp:BoundField DataField="No of Schools" HeaderText="No of Schools" />
+                <asp:BoundField DataField="District" HeaderText="District Name"  />
+                <asp:BoundField DataField="Mandal" HeaderText="No of Mandals" />
+                <asp:BoundField DataField="NoofSchools" HeaderText="No of Schools" />
                 <asp:BoundField DataField="Total Students" HeaderText="Total Students" />
                 <asp:BoundField DataField="Total Present" HeaderText="Total Present" />
                 <asp:BoundField DataField="Total Absent" HeaderText="Total Absent" />
