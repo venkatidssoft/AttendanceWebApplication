@@ -13,5 +13,23 @@ namespace StudentAttendance
 
     public partial class homepage
     {
+
+        /// <summary>
+        /// fromdatepicker control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText fromdatepicker;
+
+        /// <summary>
+        /// btngeneratereport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btngeneratereport;
     }
 }

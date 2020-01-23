@@ -62,7 +62,7 @@
             height: 100px;
             display: none;
             position: fixed;
-            background-color: White;
+            /*background-color: White;*/
             z-index: 999;
         }
 
