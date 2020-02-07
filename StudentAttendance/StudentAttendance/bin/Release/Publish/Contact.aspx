@@ -16,8 +16,8 @@
             background-color: white;
         }
     </style>
-    <h2 class="login-sec"><%: Title %>.</h2>
-    <h3 class="login-sec">IDS Soft</h3>
+    <%--<h2 class="login-sec"><%: Title %>.</h2>--%>
+    <h3 class="login-sec">IDS</h3>
     <address>
         Trendz Utility,Plot No.25,<br />
         Survey No.37- 41, 3rd Floor, Gafoor Nagar,<br />

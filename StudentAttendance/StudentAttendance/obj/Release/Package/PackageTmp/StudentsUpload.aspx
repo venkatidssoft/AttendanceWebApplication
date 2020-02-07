@@ -160,7 +160,7 @@
             <asp:FileUpload ID="FileUpload1" runat="server" class="fileUpload btn btn-primary"/>
         </div>
         <div class="col-md-2">
-            <asp:Button ID="btnUpload" runat="server" Text="Upload Attendance" OnClick="btnUpload_Click" class="btn btn-primary" />
+            <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" class="btn btn-primary" />
         </div>
     </div>
     <br />

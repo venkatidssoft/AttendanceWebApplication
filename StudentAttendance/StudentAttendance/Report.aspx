@@ -228,12 +228,12 @@
                 <div class="col-md-2">
                     Select District
             <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-controls" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged">
-                <asp:ListItem>All</asp:ListItem>
+                <asp:ListItem>Kadapa</asp:ListItem>
             </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
                     Select Mandal
-            <asp:DropDownList ID="ddlMandal" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="ddlMandal_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlMandal" runat="server" CssClass="form-controls" AutoPostBack="True" OnSelectedIndexChanged="ddlMandal_SelectedIndexChanged">
                 <asp:ListItem>All</asp:ListItem>
             </asp:DropDownList>
                 </div>

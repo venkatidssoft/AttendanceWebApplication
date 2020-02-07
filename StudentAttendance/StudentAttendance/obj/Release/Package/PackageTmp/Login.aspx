@@ -202,7 +202,7 @@
     <!------ Include the above in your HEAD tag ---------->
     <section class="login-block">
         <div style="font-size: 50px; text-align: center; color: ##DE6262; font-weight: 600; margin-bottom: 4px; margin-top: -34px;">
-            Face Recognition Attendance System    
+            IDS eAttendance System    
         </div>
         <br />
         <img src="Images/lodingfinal.gif" alt="" class="loading" />

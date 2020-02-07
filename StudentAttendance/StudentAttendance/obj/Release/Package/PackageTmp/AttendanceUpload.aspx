@@ -2,11 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <style type="text/css">
-        .modal {
+         .modal {
             position: fixed;
             top: 0;
             left: 0;
-            background-color: black;
+            /*background-color: black;*/
             z-index: 99;
             opacity: 0.8;
             filter: alpha(opacity=80);
@@ -18,14 +18,14 @@
         .loading {
             font-family: Arial;
             font-size: 10pt;
-            border: 5px solid #67CFF5;
             width: 200px;
-            height: 100px;
+            height: 200px;
             display: none;
-            position: fixed;
-            background-color: White;
+            position: absolute;
+            /*background-color: White;*/
             z-index: 999;
         }
+
 
         header .content-wrapper {
             padding-top: 0px;
@@ -133,6 +133,7 @@
     <div class="jumbotron">
         <h3 class="login-sec">Student Attendance Upload</h3>
     </div>
+      <img src="Images/lodingfinal.gif" alt="" class="loading" />
     <div class="row">
         <div class="col-md-2">
             <p style="text-align: right;">Select File :</p>
@@ -141,7 +142,7 @@
             <asp:FileUpload ID="FileUpload1" runat="server" class="fileUpload btn btn-primary" />
         </div>
         <div class="col-md-2">
-            <asp:Button ID="btnUpload" runat="server" Text="Upload Attendance" OnClick="Button1_Click" class="btn btn-primary" />
+            <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="Button1_Click" class="btn btn-primary" />
         </div>
     </div>
     <div class="row">

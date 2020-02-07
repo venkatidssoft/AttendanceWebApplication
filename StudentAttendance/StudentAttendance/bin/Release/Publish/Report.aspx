@@ -32,18 +32,36 @@
                 color: black;
             }
 
-        .btn-primary {
-            color: #fff;
-            background-color: #337ab7;
-            border-color: #2e6da4;
+        button, html input[type="button"], input[type="reset"], input[type="submit"] {
+            -webkit-appearance: button;
+            cursor: pointer;
         }
 
-        .login-sec {
-            margin-bottom: 10px;
-            font-weight: 600;
-            font-size: 30px;
-            color: #DE6262;
+        .btn-primary {
+            color: #fff;
+            background-color: #DE6262;
+            border-color: #DE6262;
+            margin-left: 97px;
+            margin-top: 10px;
+            height: 38px;
         }
+
+        .jumbotron {
+            padding: 30px;
+            margin-bottom: 30px;
+            font-size: 21px;
+            font-weight: 200;
+            line-height: 2.1428571435;
+            color: inherit;
+            background-color: white;
+        }
+
+       .login-sec {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 30px;
+    color: #DE6262;
+}
     </style>
 
     <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
@@ -142,7 +160,16 @@
             transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
             transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
         }
+
+        .auto-style1 {
+            border-collapse: collapse;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
     </style>
+
+  
+
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     <link rel="stylesheet" href="/resources/demos/style.css" />
@@ -167,7 +194,7 @@
     </script>
 
     <div class="jumbotron">
-        <h3>Attendance Report</h3>
+        <h3 class="login-sec">Attendance Report</h3>
     </div>
 
     <div class="row">
@@ -175,10 +202,10 @@
             From Date
     <input type="text" name="fromdatepicker" id="fromdatepicker" class="form-control" runat="server" clientidmode="static" />
         </div>
-        <div class="col-md-2">
+        <%--  <div class="col-md-2">
             To Date
         <input type="text" id="todatepicker" runat="server" clientidmode="static" class="form-control" />
-        </div>
+        </div>--%>
     </div>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -232,7 +259,7 @@
             <br />
             <br />
             <div class="row" style="text-align: center;">
-                <asp:Button ID="Button1" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click" OnClientClick="jsfunction(); return false;" />
+                <asp:Button ID="Button1" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click" />
             </div>
             <br />
 
@@ -264,34 +291,39 @@
                     <asp:Label ID="Label5" runat="server" Text="Selected Gender : "></asp:Label>
                     <asp:Label ID="lblgender" runat="server"></asp:Label>
                 </div>
-
             </div>
             <br />
+            <%--<div class="row" style="text-align: right; visibility:hidden">
+                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/excel.png" OnClick="ImageButton1_Click"  />
+            </div>--%>
             <div class="row">
-                <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%" OnRowCommand="grdreport_RowCommand">
+                <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%" OnRowCommand="grdreport_RowCommand"
+                    DataKeyNames="mandalid">
                     <Columns>
+                        <asp:BoundField DataField="mandalid" HeaderText="ID" />
                         <asp:BoundField DataField="District" HeaderText="District Name" />
-                        <asp:TemplateField HeaderText="No of Mandals">
+                        <asp:BoundField DataField="Mandal" HeaderText="Mandal Name" />
+                        <%-- <asp:TemplateField HeaderText="No of Mandals">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lblmandal" runat="server" Text='<%# Eval("Mandal") %>'
-                                    CommandName="mandal" CommandArgument='<%#Bind("Mandal") %>'>
+                                    CommandName="mandal" commandargument="<%# Container.DataItemIndex %>">
                                 </asp:LinkButton>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
 
 
-                        <asp:TemplateField HeaderText="No of Schools">
+                        <%-- <asp:TemplateField HeaderText="No of Schools">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lblnoofschools" runat="server" Text='<%# Eval("NoofSchools") %>'
                                     CommandName="noofschools" CommandArgument='<%#Bind("NoofSchools") %>'>
                                 </asp:LinkButton>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
 
                         <asp:TemplateField HeaderText="Total Students">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbltotalstudents" runat="server" Text='<%# Eval("TotalStudents") %>'
-                                    CommandName="totalstudents" CommandArgument='<%#Bind("TotalStudents") %>'>
+                                    CommandName="totalstudents" CommandArgument="<%# Container.DataItemIndex %>">
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -299,7 +331,7 @@
                         <asp:TemplateField HeaderText="Total Present">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbltotalpresents" runat="server" Text='<%# Eval("TotalPresent") %>'
-                                    CommandName="totalpresent" CommandArgument='<%#Bind("TotalPresent") %>'>
+                                    CommandName="totalpresent" CommandArgument="<%# Container.DataItemIndex %>">
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -307,7 +339,7 @@
                         <asp:TemplateField HeaderText="Total Absent">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lbltotalabsent" runat="server" Text='<%# Eval("TotalAbsent") %>'
-                                    CommandName="totalAbsent" CommandArgument='<%#Bind("TotalAbsent") %>'>
+                                    CommandName="totalAbsent" CommandArgument="<%# Container.DataItemIndex %>">
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -322,15 +354,33 @@
             <br />
             <br />
             <asp:Panel ID="Panel2" runat="server">
-            <div class="row" >
-                <h3>Detail Report</h3>
-            </div>
-            <div class="row">
-                <asp:Panel ID="Panel1" runat="server" Height="300px" ScrollBars="Vertical">
-                <asp:GridView ID="grdDetailReport" runat="server" Width="1841px" CssClass="table"></asp:GridView>
+                <div class="row">
+                    <h3>Detail Report</h3>
+                </div>
+                <%--  <div class="row" style="text-align: right;visibility:hidden">
+                    <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/excel.png" OnClick="ImageButton2_Click" />
+                </div>--%>
+
+                <div class="row">
+                    <div style="height: 30px; width: 100%; margin: 0; padding: 0">
+                        <table rules="all" border="1" id="tblHeader"
+                            style="font-family: Arial; font-size: 10pt; width: 100%; color: black; border-collapse: collapse; height: 100%;">
+
+                            <tr>
+                                <td style="width: 89px; text-align: center">ID</td>
+                                <td style="width: 298px; text-align: center">Name</td>
+                                <td style="width: 65px; text-align: center">Class</td>
+                                <td style="width: 22px; text-align: center">Medium</td>
+                                <td style="width: 228px; text-align: center">School</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <asp:Panel ID="Panel1" runat="server" Height="300px" ScrollBars="Vertical">
+
+                        <asp:GridView ID="grdDetailReport" runat="server" Width="1000%" CssClass="auto-style1" ShowHeader="false"></asp:GridView>
                     </asp:Panel>
-            </div>
-                </asp:Panel>
+                </div>
+            </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
