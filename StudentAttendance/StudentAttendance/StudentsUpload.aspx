@@ -1,12 +1,41 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StudentsUpload.aspx.cs" Inherits="StudentAttendance.StudentsUpload" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+        media="screen" />
+    <style type="text/css">
+        label {
+            text-align: left;
+        }
+
+        .text-align {
+            text-align: left !important;
+        }
+
+        .navbar-inverse {
+            background-color: #02639F;
+            border-color: #080808;
+        }
+
+            .navbar-inverse .navbar-brand {
+                color: black;
+            }
+
+            .navbar-inverse .navbar-nav > li > a {
+                color: black;
+            }
+    </style>
+
+
     <style type="text/css">
         .modal {
             position: fixed;
             top: 0;
             left: 0;
-            background-color: black;
+            /*background-color: black;*/
             z-index: 99;
             opacity: 0.8;
             filter: alpha(opacity=80);
@@ -18,12 +47,11 @@
         .loading {
             font-family: Arial;
             font-size: 10pt;
-            border: 5px solid #67CFF5;
             width: 200px;
-            height: 100px;
+            height: 200px;
             display: none;
-            position: fixed;
-            background-color: White;
+            position: absolute;
+            /*background-color: White;*/
             z-index: 999;
         }
 
@@ -34,32 +62,75 @@
         .jumbotron {
             padding-top: 1px;
             padding-bottom: 2px;
+            background-color: white;
         }
-            body
-        {
+
+        body {
             font-family: Arial;
             font-size: 10pt;
         }
-        table
-        {
+
+        table {
             border: 1px solid #ccc;
             width: 450px;
             margin-bottom: -1px;
         }
-        table th
-        {
-            background-color: #F7F7F7;
-            color: #333;
-            font-weight: bold;
-        }
-        table th, table td
-        {
-            padding: 5px;
-            border-color: #ccc;
+
+            table th {
+                background-color: #F7F7F7;
+                color: #333;
+                font-weight: bold;
+            }
+
+            table th, table td {
+                padding: 5px;
+                border-color: #ccc;
+            }
+
+        .login-sec {
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 30px;
+            color: #DE6262;
         }
 
+        .container .jumbotron, .container-fluid .jumbotron {
+            padding-right: 60px;
+            padding-left: 10px;
+        }
+
+      .btn-primary {
+            color: #fff;
+            background-color: #DE6262;
+            border-color: #DE6262;
+            margin-left: 97px;
+            margin-top: 10px;
+            height: 38px;
+        }
+       .fileUpload {
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+            .fileUpload input.upload {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+
+        p {
+            margin: 17px 0 10px;
+        }
     </style>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+    <script type="text/javascript" src="Scripts/jquery.min.js"></script>
     <script type="text/javascript">
         function ShowProgress() {
             setTimeout(function () {
@@ -78,23 +149,26 @@
         });
     </script>
     <div class="jumbotron">
-        <h3>Student Details Upload</h3>
+        <h3 class="login-sec">Student Details Upload</h3>
     </div>
+    <img src="Images/lodingfinal.gif" alt="" class="loading" />
     <div class="row">
         <div class="col-md-2">
             <p style="text-align: right;">Select File :</p>
         </div>
         <div class="col-md-2">
-            <asp:FileUpload ID="FileUpload1" runat="server" />
+            <asp:FileUpload ID="FileUpload1" runat="server" class="fileUpload btn btn-primary"/>
         </div>
         <div class="col-md-2">
-            <asp:Button ID="btnUpload" runat="server" Text="Upload Attendance" OnClick="btnUpload_Click" />
+            <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="btnUpload_Click" class="btn btn-primary" />
         </div>
     </div>
+    <br />
+    <br />
     <div class="row">
         <div class="col-md-2">
             <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" ShowHeaderWhenEmpty="True" EmptyDataText="No data in the data source."
-                AutoGenerateColumns="False">
+                AutoGenerateColumns="False" Width="100%" CssClass="table">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:BoundField DataField="student_unique_id" HeaderText="ID" ItemStyle-Width="150px">

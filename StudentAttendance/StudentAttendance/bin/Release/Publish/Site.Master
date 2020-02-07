@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - e-Attendance System</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -18,7 +18,7 @@
         .footer {
             position: fixed;
             height: 50px;
-            background-color: #02639F;
+            background: linear-gradient(to bottom, #FFB88C, #DE6262);
             bottom: 0px;
             left: 0px;
             right: 0px;
@@ -29,16 +29,20 @@
         .p-footer {
             margin: 14px 0 10px;
             text-align: center;
+            font-size:14px;
         }
 
         .navbar-inverse {
-            background-color: #02639F;
+            background: linear-gradient(to bottom, #FFB88C, #DE6262);
             border-color: #080808;
         }
 
             .navbar-inverse .navbar-brand {
-                color: white;
+                color: Black;
             }
+            .navbar-inverse .navbar-nav > li > a {
+    color: black;
+}
     </style>
 </head>
 <body>
@@ -71,20 +75,21 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="">Student Attendance</a>
+                    <a class="navbar-brand" runat="server" href="homepage.aspx">Student Attendance</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="homepage.aspx">Dashboard</a></li>
-                        <li><a runat="server" href="StudentsUpload.aspx">Student Details Upload</a></li>
-                        <li><a runat="server" href="AttendanceUpload.aspx">Attendance Upload</a></li>
+                        <li><a id="studentUpload" runat="server" href="StudentsUpload.aspx">Student Details Upload</a></li>
+                        <li><a id="AttendanceUpload" runat="server" href="AttendanceUpload.aspx">Attendance Upload</a></li>
                         <li><a runat="server" href="Report.aspx">Report</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                         <li><a runat="server" href="Login.aspx">Logout</a></li>
                     </ul>
-                    <div style="text-align: right; margin-top: 15px; color: white;">
+                    <div style="text-align: right; margin-top: 15px; color: black;">
                         Username : 
                     <asp:Label ID="Label1" runat="server"></asp:Label>
+
                     </div>
                 </div>
 
@@ -95,7 +100,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer class="footer">
-                <p class="p-footer">&copy; Intuitive Data Solutions Pvt Ltd. - <%: DateTime.Now.Year %> </p>
+                <p class="p-footer">&copy; Designed & Developed by IDS - <%: DateTime.Now.Year %> </p>
             </footer>
         </div>
 

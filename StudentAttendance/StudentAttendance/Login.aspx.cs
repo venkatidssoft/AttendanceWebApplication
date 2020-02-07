@@ -18,7 +18,7 @@ namespace StudentAttendance
             Session.Clear();
             GlobalVariables.connString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             txtusername.Focus();
-            string script = "$(document).ready(function () { $('[id*=btngeneratereport]').click(); });";
+            string script = "$(document).ready(function () { $('[id*=btnlogin]').onload(); });";
         }
 
         protected void btnlogin_Click(object sender, EventArgs e)
@@ -38,6 +38,7 @@ namespace StudentAttendance
                 {
                     Session["id"] = sdr["userID"];
                     Session["username"] = sdr["username"];
+                    Session["isAdmin"] = sdr["isAdmin"];
                     Response.Redirect("homepage.aspx");
                     sdr.Close();
                     con.Close();

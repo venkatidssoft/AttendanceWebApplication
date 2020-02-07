@@ -23,7 +23,7 @@
             background: linear-gradient(to bottom, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             float: left;
             width: 100%;
-            padding: 50px 0;
+            padding: 94px 0;
         }
 
         .banner-sec {
@@ -121,8 +121,37 @@
                 color: #fff;
             }
     </style>
+    <style type="text/css">
+        .footer {
+            position: fixed;
+            height: 50px;
+            background: linear-gradient(to bottom, #FFB88C, #DE6262);
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            margin-bottom: 0px;
+            margin-top: 2px;
+        }
+
+        .p-footer {
+            margin: 14px 0 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .navbar-inverse {
+            background-color: #02639F;
+            border-color: #080808;
+        }
+
+            .navbar-inverse .navbar-brand {
+                color: white;
+            }
+    </style>
+
     <%--spinner code--%>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+    <script type="text/javascript" src="Scripts/jquery.min.js"></script>
     <script type="text/javascript">
         function ShowProgress() {
             setTimeout(function () {
@@ -145,7 +174,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: black;
+            /*background-color: black;*/
             z-index: 99;
             opacity: 0.8;
             filter: alpha(opacity=80);
@@ -158,21 +187,25 @@
             font-family: Arial;
             font-size: 10pt;
             width: 200px;
-            height: 100px;
+            height: 200px;
             display: none;
             position: fixed;
-            background-color: White;
+            /*background-color: White;*/
             z-index: 999;
         }
     </style>
 </head>
 <body>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
-
     <section class="login-block">
+        <div style="font-size: 50px; text-align: center; color: ##DE6262; font-weight: 600; margin-bottom: 4px; margin-top: -34px;">
+            Face Recognition Attendance System    
+        </div>
+        <br />
+        <img src="Images/lodingfinal.gif" alt="" class="loading" />
         <div class="container">
             <div class="row">
                 <div class="col-md-4 login-sec">
@@ -234,11 +267,12 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
-                <div class="loading" align="center">
-                    <br />
-                    <img src="Images/lodingfinal.gif" alt="" />
-                </div>
-
+    <div class="container body-content">
+        <footer class="footer">
+            <p class="p-footer">&copy; Designed & Developed by IDS - <%: DateTime.Now.Year %> </p>
+        </footer>
+    </div>
 </body>
 </html>

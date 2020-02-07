@@ -20,6 +20,17 @@ namespace StudentAttendance
                 else
                 {
                     Label1.Text = Session["username"].ToString();
+                    string isadminStatus = Session["isAdmin"].ToString();
+                    if (isadminStatus =="1")
+                    {
+                        studentUpload.Visible = true;
+                    }
+                    else
+                    {
+                        studentUpload.Visible = false;
+                        AttendanceUpload.Visible = false;
+                    }
+                    
                 }
             }
             

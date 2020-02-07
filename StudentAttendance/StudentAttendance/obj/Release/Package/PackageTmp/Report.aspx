@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="StudentAttendance.Report" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="StudentAttendance.Report" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
@@ -18,12 +18,36 @@
             background-color: #02639F;
             border-color: #080808;
         }
-        .navbar-inverse .navbar-brand {
-    color: white;
-}
+
+        .navbar-inverse {
+            background-color: white;
+            border-color: #080808;
+        }
+
+            .navbar-inverse .navbar-brand {
+                color: black;
+            }
+
+            .navbar-inverse .navbar-nav > li > a {
+                color: black;
+            }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+        .login-sec {
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 30px;
+            color: #DE6262;
+        }
     </style>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+    <script type="text/javascript" src="Scripts/jquery.min.js"></script>
     <script type="text/javascript">
         function ShowProgress() {
             setTimeout(function () {
@@ -59,9 +83,9 @@
             font-family: Arial;
             font-size: 10pt;
             width: 200px;
-            height: 100px;
+            height: 200px;
             display: none;
-            position: fixed;
+            position: absolute;
             /*background-color: White;*/
             z-index: 999;
         }
@@ -125,154 +149,188 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+        var fDate = '<%=sDate %>';
+        var tDate = '<%=eDate %>';
         $(function () {
-            $("#fromdatepicker").datepicker();
-            var currentDate = new Date();
-            $("#fromdatepicker").datepicker("setDate", currentDate);
+            $("#fromdatepicker").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+            $("#fromdatepicker").datepicker("setDate", fDate);
         });
 
         $(function () {
-            $("#todatepicker").datepicker();
-            var currentDate = new Date();
-            $("#todatepicker").datepicker("setDate", currentDate);
+            $("#todatepicker").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+            $("#todatepicker").datepicker("setDate", tDate);
         });
     </script>
-
-
 
     <div class="jumbotron">
         <h3>Attendance Report</h3>
     </div>
-    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-        <ContentTemplate>
-            <div class="row">
-                <div class="col-md-2">
-                    From Date
+
+    <div class="row">
+        <div class="col-md-2">
+            From Date
     <input type="text" name="fromdatepicker" id="fromdatepicker" class="form-control" runat="server" clientidmode="static" />
-                </div>
-                <div class="col-md-2">
-                    To Date
+        </div>
+        <div class="col-md-2">
+            To Date
         <input type="text" id="todatepicker" runat="server" clientidmode="static" class="form-control" />
-                </div>
-            </div>
-            <br />
-        </ContentTemplate>
-    </asp:UpdatePanel>
+        </div>
+    </div>
+
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
 
-            
-            <%--<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>--%>
+            <%--        </ContentTemplate>
+    </asp:UpdatePanel>--%>
+
+            <br />
+            <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>--%>
+
+
+            <%--<div class="loading" align="center">--%>
+            <br />
+            <img src="Images/lodingfinal.gif" alt="" class="loading" />
+            <%--</div>--%>
 
             <div class="row">
                 <div class="col-md-2">
                     Select District
             <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-controls" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged">
                 <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Kadapa</asp:ListItem>
             </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
                     Select Mandal
             <asp:DropDownList ID="ddlMandal" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="ddlMandal_SelectedIndexChanged">
                 <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Pulivendula</asp:ListItem>
-                <asp:ListItem>Badvel</asp:ListItem>
             </asp:DropDownList>
                 </div>
                 <div class="col-md-3">
                     Select School
             <asp:DropDownList ID="ddlSchool" runat="server" CssClass="form-controls" AutoPostBack="true" Enabled="false" OnSelectedIndexChanged="ddlSchool_SelectedIndexChanged">
                 <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Government High School Ramanappa Satram</asp:ListItem>
-                <asp:ListItem>ZP High School Badvel</asp:ListItem>
             </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
                     Select Class
             <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged">
                 <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Class 1</asp:ListItem>
-                <asp:ListItem>Class 2</asp:ListItem>
-                <asp:ListItem>Class 3</asp:ListItem>
-                <asp:ListItem>Class 4</asp:ListItem>
-                <asp:ListItem>Class 5</asp:ListItem>
-                <asp:ListItem>Class 6</asp:ListItem>
-                <asp:ListItem>Class 7</asp:ListItem>
-                <asp:ListItem>Class 8</asp:ListItem>
-                <asp:ListItem>Class 9</asp:ListItem>
-                <asp:ListItem>Class 10</asp:ListItem>
             </asp:DropDownList>
                 </div>
-
-
                 <div class="col-md-2">
                     Select Gender
-            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="ddlGender_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True">
                 <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Male</asp:ListItem>
-                <asp:ListItem>Female</asp:ListItem>
             </asp:DropDownList>
                 </div>
             </div>
-
-
             <br />
-            <%--<div class="row">
+            <br />
+            <div class="row" style="text-align: center;">
+                <asp:Button ID="Button1" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click" OnClientClick="jsfunction(); return false;" />
+            </div>
+            <br />
+
+            <div class="row">
                 <div class="col-md-2">
-            Select Location
-            <asp:DropDownList ID="ddlLocation" runat="server" class="form-control">
-                <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Pulivendula</asp:ListItem>
-                <asp:ListItem>Badvel</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        
-        <div class="col-md-2">
-            Select Medium
-            <asp:DropDownList ID="ddlMedium" runat="server" class="form-control">
-                <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>Telugu</asp:ListItem>
-                <asp:ListItem>English</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-2">
-            Select Section
-            <asp:DropDownList ID="ddlSection" runat="server" class="form-control">
-                <asp:ListItem>All</asp:ListItem>
-                <asp:ListItem>A</asp:ListItem>
-                <asp:ListItem>B</asp:ListItem>
-                <asp:ListItem>C</asp:ListItem>
-                <asp:ListItem>D</asp:ListItem>
-                <asp:ListItem>E</asp:ListItem>
-                <asp:ListItem>F</asp:ListItem>
-                <asp:ListItem>G</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-    </div>--%>
-            <%--<br />--%>
+                    <asp:Label ID="Label6" runat="server" Text="From Date : "></asp:Label><asp:Label ID="lblfromdate" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-2">
+                    <asp:Label ID="Label7" runat="server" Text="To Date : "></asp:Label><asp:Label ID="lbltodate" runat="server"></asp:Label>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    <asp:Label ID="Label1" runat="server" Text="Selected District : "></asp:Label><asp:Label ID="lbldistrict" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-2">
+                    <asp:Label ID="Label2" runat="server" Text="Selected Mandal : "></asp:Label><asp:Label ID="lblmandal" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-2">
+                    <asp:Label ID="Label3" runat="server" Text="Selected School : "></asp:Label>
+                    <asp:Label ID="lblschool" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-2">
+                    <asp:Label ID="Label4" runat="server" Text="Selected Class : "></asp:Label>
+                    <asp:Label ID="lblclass" runat="server"></asp:Label>
+                </div>
+                <div class="col-md-2">
+                    <asp:Label ID="Label5" runat="server" Text="Selected Gender : "></asp:Label>
+                    <asp:Label ID="lblgender" runat="server"></asp:Label>
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%" OnRowCommand="grdreport_RowCommand">
+                    <Columns>
+                        <asp:BoundField DataField="District" HeaderText="District Name" />
+                        <asp:TemplateField HeaderText="No of Mandals">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lblmandal" runat="server" Text='<%# Eval("Mandal") %>'
+                                    CommandName="mandal" CommandArgument='<%#Bind("Mandal") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+                        <asp:TemplateField HeaderText="No of Schools">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lblnoofschools" runat="server" Text='<%# Eval("NoofSchools") %>'
+                                    CommandName="noofschools" CommandArgument='<%#Bind("NoofSchools") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Total Students">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lbltotalstudents" runat="server" Text='<%# Eval("TotalStudents") %>'
+                                    CommandName="totalstudents" CommandArgument='<%#Bind("TotalStudents") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Total Present">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lbltotalpresents" runat="server" Text='<%# Eval("TotalPresent") %>'
+                                    CommandName="totalpresent" CommandArgument='<%#Bind("TotalPresent") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Total Absent">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lbltotalabsent" runat="server" Text='<%# Eval("TotalAbsent") %>'
+                                    CommandName="totalAbsent" CommandArgument='<%#Bind("TotalAbsent") %>'>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                    </Columns>
+                </asp:GridView>
+                <%--// Associated Controls--%>
+                <asp:HiddenField ID="hfAction" runat="server" />
+                <asp:HiddenField ID="hfRow" runat="server" />
+                <asp:HiddenField ID="hfColumn" runat="server" />
+            </div>
+            <br />
+            <br />
+            <asp:Panel ID="Panel2" runat="server">
+            <div class="row" >
+                <h3>Detail Report</h3>
+            </div>
+            <div class="row">
+                <asp:Panel ID="Panel1" runat="server" Height="300px" ScrollBars="Vertical">
+                <asp:GridView ID="grdDetailReport" runat="server" Width="1841px" CssClass="table"></asp:GridView>
+                    </asp:Panel>
+            </div>
+                </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <div class="row" style="text-align: center;">
-        <asp:Button ID="btngeneratereport" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click" />
-    </div>
-    <br />
-    <div class="row">
-        <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%">
-            <Columns>
-                <asp:BoundField DataField="District" HeaderText="District Name" />
-                <asp:BoundField DataField="Mandal" HeaderText="No of Mandals" />
-                <asp:BoundField DataField="NoofSchools" HeaderText="No of Schools" />
-                <asp:BoundField DataField="Total Students" HeaderText="Total Students" />
-                <asp:BoundField DataField="Total Present" HeaderText="Total Present" />
-                <asp:BoundField DataField="Total Absent" HeaderText="Total Absent" />
-            </Columns>
-        </asp:GridView>
-    </div>
-
-    <br />
-    <div class="loading" align="center">
-        <br />
-        <img src="Images/lodingfinal.gif" alt="" />
-    </div>
 </asp:Content>
