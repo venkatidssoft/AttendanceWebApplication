@@ -519,115 +519,115 @@ namespace StudentAttendance
         protected void grdreport_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
-            string startDate = "";
-            string endDate = "";
-            if (!string.IsNullOrEmpty(fromdatepicker.Value.Trim()))
-            {
-                // CONVERT DATE FORMAT.
-                startDate = DateTime.ParseExact(
-                    fromdatepicker.Value, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            }
+            //string startDate = "";
+            //string endDate = "";
+            //if (!string.IsNullOrEmpty(fromdatepicker.Value.Trim()))
+            //{
+            //    // CONVERT DATE FORMAT.
+            //    startDate = DateTime.ParseExact(
+            //        fromdatepicker.Value, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            //}
 
 
-            string fromDate = fromdatepicker.Value.ToString();
-            DateTime fDate = Convert.ToDateTime(startDate);
+            //string fromDate = fromdatepicker.Value.ToString();
+            //DateTime fDate = Convert.ToDateTime(startDate);
 
-            this.fromdateValue = fDate.Year + "-" + fDate.Day.ToString("#00") + "-" + fDate.Month.ToString("#00") + " 00:00:00";
+            //this.fromdateValue = fDate.Year + "-" + fDate.Day.ToString("#00") + "-" + fDate.Month.ToString("#00") + " 00:00:00";
 
-            Panel2.Visible = true;
-            MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
-            string isadminEnable = Session["isAdmin"].ToString();
-            int RowIndex = Convert.ToInt32(e.CommandArgument.ToString());
-            string index = Convert.ToString(e.CommandName);
-            if (isadminEnable == "1")
-            {
-                if (RowIndex == 0)
-                {
+            //Panel2.Visible = true;
+            //MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
+            //string isadminEnable = Session["isAdmin"].ToString();
+            //int RowIndex = Convert.ToInt32(e.CommandArgument.ToString());
+            //string index = Convert.ToString(e.CommandName);
+            //if (isadminEnable == "1")
+            //{
+            //    if (RowIndex == 0)
+            //    {
                     
                    
-                    if (e.CommandName == "totalstudents")
-                    {
-                        detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_school as School FROM student_registration  where student_mandal='Pulivendula'";
-                    }
-                    if (e.CommandName == "totalpresent")
-                    {
-                        detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='"+this.fromdateValue+ "' AND st.AttendanceDate <='" + this.fromdateValue + "')";
-                    }
-                    if (e.CommandName == "totalAbsent")
-                    {
-                        detailsQuery = "";
-                    }
+            //        if (e.CommandName == "totalstudents")
+            //        {
+            //            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_school as School FROM student_registration  where student_mandal='Pulivendula'";
+            //        }
+            //        if (e.CommandName == "totalpresent")
+            //        {
+            //            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='"+this.fromdateValue+ "' AND st.AttendanceDate <='" + this.fromdateValue + "')";
+            //        }
+            //        if (e.CommandName == "totalAbsent")
+            //        {
+            //            detailsQuery = "";
+            //        }
 
 
-                }
-                else
-                {
+            //    }
+            //    else
+            //    {
                     
                   
-                    if (e.CommandName == "totalstudents")
-                    {
-                        detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_school as School FROM student_registration  where student_mandal='badvel'";
-                    }
-                    if (e.CommandName == "totalpresent")
-                    {
-                        detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "')";
-                    }
-                    if (e.CommandName == "totalAbsent")
-                    {
-                        detailsQuery = "";
-                    }
-                }
-            }
-            else
-            {
-                if(Session[""].ToString()== "Pulivendula")
-                {
-                    if (e.CommandName == "totalstudents")
-                    {
-                        detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_district as District,student_mandal as Mandal,student_school as School FROM student_registration WHERE schoolID='" + Session["id"] + "'";
-                    }
-                    if (e.CommandName == "totalpresent")
-                    {
-                        detailsQuery = "";
-                    }
-                    if (e.CommandName == "totalAbsent")
-                    {
-                        detailsQuery = "";
-                    }
-                }
-                else
-                {
+            //        if (e.CommandName == "totalstudents")
+            //        {
+            //            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_school as School FROM student_registration  where student_mandal='badvel'";
+            //        }
+            //        if (e.CommandName == "totalpresent")
+            //        {
+            //            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "')";
+            //        }
+            //        if (e.CommandName == "totalAbsent")
+            //        {
+            //            detailsQuery = "";
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if(Session[""].ToString()== "Pulivendula")
+            //    {
+            //        if (e.CommandName == "totalstudents")
+            //        {
+            //            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_district as District,student_mandal as Mandal,student_school as School FROM student_registration WHERE schoolID='" + Session["id"] + "'";
+            //        }
+            //        if (e.CommandName == "totalpresent")
+            //        {
+            //            detailsQuery = "";
+            //        }
+            //        if (e.CommandName == "totalAbsent")
+            //        {
+            //            detailsQuery = "";
+            //        }
+            //    }
+            //    else
+            //    {
 
-                }
+            //    }
                 
                
 
-            }
+            //}
 
-            using (MySqlCommand cmd = new MySqlCommand(detailsQuery))
-            {
-                using (MySqlDataAdapter sda = new MySqlDataAdapter())
-                {
-                    cmd.Connection = con;
-                    con.Open();
-                    sda.SelectCommand = cmd;
+            //using (MySqlCommand cmd = new MySqlCommand(detailsQuery))
+            //{
+            //    using (MySqlDataAdapter sda = new MySqlDataAdapter())
+            //    {
+            //        cmd.Connection = con;
+            //        con.Open();
+            //        sda.SelectCommand = cmd;
 
-                    using (DataTable dt = new DataTable())
-                    {
-                        sda.Fill(dt);
-                        if (dt.Rows.Count > 0)
-                        {
-                            grdDetailReport.DataSource = dt;
-                            grdDetailReport.DataBind();
-                        }
-                        else
-                        {
-                            grdDetailReport.DataSource = null;
-                            grdDetailReport.DataBind();
-                        }
-                    }
-                }
-            }
+            //        using (DataTable dt = new DataTable())
+            //        {
+            //            sda.Fill(dt);
+            //            if (dt.Rows.Count > 0)
+            //            {
+            //                grdDetailReport.DataSource = dt;
+            //                grdDetailReport.DataBind();
+            //            }
+            //            else
+            //            {
+            //                grdDetailReport.DataSource = null;
+            //                grdDetailReport.DataBind();
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)

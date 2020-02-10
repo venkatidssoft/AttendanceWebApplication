@@ -11,6 +11,10 @@
             width: 50%;
             height: 350px;
         }
+         .barchart{
+             text-align:center;
+             margin-left:35%
+         }
         .btn-primary {
             color: #fff;
             background-color: #337ab7;
@@ -297,15 +301,16 @@
             <asp:Button ID="btngeneratereport" runat="server" Text="Generate Report" class="btn btn-primary" OnClick="btngeneratereport_Click" />
         </div>
     </div>
+    <br>
     <div style="text-align: center;">
         <h2>Attendance Chart</h2>
         <h5>
             <asp:Label ID="Label1" runat="server"></asp:Label></h5>
     </div>
-    <asp:Panel ID="Panel1" runat="server">
+    <asp:Panel ID="Panel1" runat="server" CssClass="barchart">
         <div id="chartdiv"></div>
     </asp:Panel>
-    <asp:Panel ID="Panel2" runat="server">
+    <asp:Panel ID="Panel2" runat="server" CssClass="barchart">
         <div id="chartdivuser"></div>
     </asp:Panel>
 </asp:Content>

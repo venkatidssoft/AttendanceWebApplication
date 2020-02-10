@@ -1,10 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="StudentAttendance.Report" EnableEventValidation="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
-    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
-        media="screen" />
+    <script type="text/javascript" src="Scripts/jquery-1.8.3.min.js"></script>
+    <%--<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>--%>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="Content/bootstrap.min.css" media="screen" />
+    <%--<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css' media="screen" />--%>
     <style type="text/css">
         label {
             text-align: left;
@@ -56,12 +57,12 @@
             background-color: white;
         }
 
-       .login-sec {
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 30px;
-    color: #DE6262;
-}
+        .login-sec {
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 30px;
+            color: #DE6262;
+        }
     </style>
 
     <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
@@ -168,7 +169,7 @@
         }
     </style>
 
-  
+
 
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
@@ -249,12 +250,12 @@
                 <asp:ListItem>All</asp:ListItem>
             </asp:DropDownList>
                 </div>
-                <div class="col-md-2">
+                <%--<div class="col-md-2">
                     Select Gender
             <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True">
                 <asp:ListItem>All</asp:ListItem>
             </asp:DropDownList>
-                </div>
+                </div>--%>
             </div>
             <br />
             <br />
@@ -274,23 +275,23 @@
             <br />
             <div class="row">
                 <div class="col-md-2">
-                    <asp:Label ID="Label1" runat="server" Text="Selected District : "></asp:Label><asp:Label ID="lbldistrict" runat="server"></asp:Label>
+                    <asp:Label ID="Label1" runat="server" Text="District : "></asp:Label><asp:Label ID="lbldistrict" runat="server"></asp:Label>
                 </div>
-                <div class="col-md-2">
-                    <asp:Label ID="Label2" runat="server" Text="Selected Mandal : "></asp:Label><asp:Label ID="lblmandal" runat="server"></asp:Label>
+                <div class="col-md-3">
+                    <asp:Label ID="Label2" runat="server" Text="Mandal : "></asp:Label><asp:Label ID="lblmandal" runat="server"></asp:Label>
                 </div>
-                <div class="col-md-2">
-                    <asp:Label ID="Label3" runat="server" Text="Selected School : "></asp:Label>
+                <div class="col-md-3">
+                    <asp:Label ID="Label3" runat="server" Text="School : "></asp:Label>
                     <asp:Label ID="lblschool" runat="server"></asp:Label>
                 </div>
                 <div class="col-md-2">
-                    <asp:Label ID="Label4" runat="server" Text="Selected Class : "></asp:Label>
+                    <asp:Label ID="Label4" runat="server" Text="Class : "></asp:Label>
                     <asp:Label ID="lblclass" runat="server"></asp:Label>
                 </div>
-                <div class="col-md-2">
+                <%--<div class="col-md-2">
                     <asp:Label ID="Label5" runat="server" Text="Selected Gender : "></asp:Label>
                     <asp:Label ID="lblgender" runat="server"></asp:Label>
-                </div>
+                </div>--%>
             </div>
             <br />
             <%--<div class="row" style="text-align: right; visibility:hidden">
