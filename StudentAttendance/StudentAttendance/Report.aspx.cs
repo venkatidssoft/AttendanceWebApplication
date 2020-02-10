@@ -22,6 +22,7 @@ namespace StudentAttendance
         public string fromDt, toDt;
         public string sDate,eDate;
         public string fromdateValue;
+        string selectAllQuery;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -348,12 +349,33 @@ namespace StudentAttendance
             string strQuery = string.Empty;
             //zstring strConnString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
+
+            
+
             try
             {
+                if (Session["isAdmin"].ToString() == "1")
+                {
+
+                    this.selectAllQuery = "SELECT total_students.mandalid,total_students.student_district AS District,total_students.student_mandal AS Mandal, total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) AS TotalAbsent  FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "' GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal ORDER BY total_students.mandalid  ";
+                }
+                else
+                {
+                    string username = Session["username"].ToString();
+                    if (username == "pulivendula")
+                    {
+                        this.selectAllQuery = "SELECT total_students.mandalid,total_students.student_district AS District,total_students.student_mandal AS Mandal, total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_mandal = 'Badvel' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "' AND reg.student_mandal = '" + username+"' GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal ORDER BY total_students.mandalid";
+                    }
+                    else
+                    {
+                        this.selectAllQuery = "SELECT total_students.mandalid,total_students.student_district AS District,total_students.student_mandal AS Mandal, total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_mandal = 'Badvel' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "' AND reg.student_mandal = '" + username + "' GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal ORDER BY total_students.mandalid";
+                    }
+                }
+
                 //if user dont select anything 
                 if (ddlDistrict.SelectedItem.ToString() == "Kadapa" && ddlMandal.SelectedItem.ToString() == "All" && ddlSchool.SelectedItem.ToString() == "All" && ddlGender.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
                 {
-                    sqlQueryString = "SELECT total_students.mandalid,total_students.student_district AS District,total_students.student_mandal AS Mandal, total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) AS TotalAbsent  FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='"+fromdateValue+ "' AND att.AttendanceDate <='" + fromdateValue + "' GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal ORDER BY total_students.mandalid  ";
+                    sqlQueryString = selectAllQuery;
                 }
                 //user selected one on every dropdown menu
                 if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() != "All" && ddlGender.SelectedItem.ToString() != "All" && ddlClass.SelectedItem.ToString() != "All")
@@ -380,7 +402,6 @@ namespace StudentAttendance
                 {
                     sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration) AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration ) AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "') as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration   WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' )-count(sa.student_unique_id)) as 'Total Absent'   from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id   AND sr.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND sa.AttendanceDate >='" + fromdateValue + "' AND sa.AttendanceDate <='" + fromdateValue + "' group by sr.student_district ";
                 }
-
                 using (MySqlCommand cmd = new MySqlCommand(sqlQueryString))
                 {
                     using (MySqlDataAdapter sda = new MySqlDataAdapter())
@@ -439,9 +460,10 @@ namespace StudentAttendance
             }
             catch (Exception ex)
             {
+
                 grdreport.DataSource = null;
                 grdreport.DataBind();
-
+                Response.Write(ex.Message);
             }
             finally
             {
@@ -561,32 +583,31 @@ namespace StudentAttendance
                     {
                         detailsQuery = "";
                     }
-
-
                 }
             }
             else
             {
-                if (e.CommandName == "mandal")
+                if(Session[""].ToString()== "Pulivendula")
                 {
-                    detailsQuery = "select mandalID as ID,mandalName as Name from tblMandal where schoolID='" + Session["id"] + "'";
+                    if (e.CommandName == "totalstudents")
+                    {
+                        detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_district as District,student_mandal as Mandal,student_school as School FROM student_registration WHERE schoolID='" + Session["id"] + "'";
+                    }
+                    if (e.CommandName == "totalpresent")
+                    {
+                        detailsQuery = "";
+                    }
+                    if (e.CommandName == "totalAbsent")
+                    {
+                        detailsQuery = "";
+                    }
                 }
-                if (e.CommandName == "noofschools")
+                else
                 {
-                    detailsQuery = "select schoolID as ID,schoolName as Name from tblSchool where schoolID='" + Session["id"] + "'";
+
                 }
-                if (e.CommandName == "totalstudents")
-                {
-                    detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_district as District,student_mandal as Mandal,student_school as School FROM student_registration WHERE schoolID='" + Session["id"] + "'";
-                }
-                if (e.CommandName == "totalpresent")
-                {
-                    detailsQuery = "";
-                }
-                if (e.CommandName == "totalAbsent")
-                {
-                    detailsQuery = "";
-                }
+                
+               
 
             }
 
