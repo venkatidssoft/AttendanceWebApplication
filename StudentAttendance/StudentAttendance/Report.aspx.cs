@@ -51,7 +51,7 @@ namespace StudentAttendance
                     Label2.Visible = false;
                     Label3.Visible = false;
                     Label4.Visible = false;
-                    Label5.Visible = false;
+                    //Label5.Visible = false;
                     Label6.Visible = false;
                     Label7.Visible = false;
                     Panel2.Visible = false;
@@ -263,50 +263,50 @@ namespace StudentAttendance
         }
 
 
-        public void bindGender()
-        {
-            MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
+        //public void bindGender()
+        //{
+        //    MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
 
-            try
-            {
-                using (MySqlCommand cmd = new MySqlCommand("select genderID,genderName from tblgender"))
-                {
-                    using (MySqlDataAdapter sda = new MySqlDataAdapter())
-                    {
-                        cmd.Connection = con;
-                        con.Open();
-                        sda.SelectCommand = cmd;
+        //    try
+        //    {
+        //        using (MySqlCommand cmd = new MySqlCommand("select genderID,genderName from tblgender"))
+        //        {
+        //            using (MySqlDataAdapter sda = new MySqlDataAdapter())
+        //            {
+        //                cmd.Connection = con;
+        //                con.Open();
+        //                sda.SelectCommand = cmd;
 
-                        using (DataTable dt = new DataTable())
-                        {
-                            sda.Fill(dt);
-                            if (dt.Rows.Count > 0)
-                            {
+        //                using (DataTable dt = new DataTable())
+        //                {
+        //                    sda.Fill(dt);
+        //                    if (dt.Rows.Count > 0)
+        //                    {
 
-                                ddlGender.DataSource = dt;
-                                ddlGender.DataTextField = "genderName";
-                                ddlGender.DataValueField = "genderID";
-                                ddlGender.DataBind();
-                                ddlGender.Items.Insert(0, new ListItem("All"));
-                            }
-                            else
-                            {
-                                ddlGender.DataSource = null;
-                                ddlGender.DataBind();
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Response.Write(ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
+        //                        ddlGender.DataSource = dt;
+        //                        ddlGender.DataTextField = "genderName";
+        //                        ddlGender.DataValueField = "genderID";
+        //                        ddlGender.DataBind();
+        //                        ddlGender.Items.Insert(0, new ListItem("All"));
+        //                    }
+        //                    else
+        //                    {
+        //                        ddlGender.DataSource = null;
+        //                        ddlGender.DataBind();
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Response.Write(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //}
         protected void btngeneratereport_Click(object sender, EventArgs e)
         {
             this.bindgridview();
@@ -350,7 +350,7 @@ namespace StudentAttendance
             //zstring strConnString = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
             MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
 
-            
+            string username = Session["username"].ToString();
 
             try
             {
@@ -361,44 +361,37 @@ namespace StudentAttendance
                 }
                 else
                 {
-                    string username = Session["username"].ToString();
-                    if (username == "pulivendula")
-                    {
-                        this.selectAllQuery = "SELECT total_students.mandalid,total_students.student_district AS District,total_students.student_mandal AS Mandal, total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_mandal = 'Badvel' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "' AND reg.student_mandal = '" + username+"' GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal ORDER BY total_students.mandalid";
-                    }
-                    else
-                    {
-                        this.selectAllQuery = "SELECT total_students.mandalid,total_students.student_district AS District,total_students.student_mandal AS Mandal, total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_mandal = 'Badvel' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "' AND reg.student_mandal = '" + username + "' GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal ORDER BY total_students.mandalid";
-                    }
+
+                    this.selectAllQuery = "SELECT total_students.student_district as District, total_students.student_mandal Mandal,total_students.mandalid as mandalid,total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) AS TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_registration.student_mandal='" + username + "' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "'   GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal   ORDER BY total_students.mandalid";
                 }
 
                 //if user dont select anything 
-                if (ddlDistrict.SelectedItem.ToString() == "Kadapa" && ddlMandal.SelectedItem.ToString() == "All" && ddlSchool.SelectedItem.ToString() == "All" && ddlGender.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
+                if (ddlDistrict.SelectedItem.ToString() == "Kadapa" && ddlMandal.SelectedItem.ToString() == "All" && ddlSchool.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
                 {
                     sqlQueryString = selectAllQuery;
                 }
                 //user selected one on every dropdown menu
-                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() != "All" && ddlGender.SelectedItem.ToString() != "All" && ddlClass.SelectedItem.ToString() != "All")
+                if (ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() == "All"  && ddlClass.SelectedItem.ToString() == "All")
                 {
-                    sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "') AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration WHERE student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "') AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "' AND student_registration.student_sex='" + ddlGender.SelectedItem.ToString() + "') as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration   WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "' AND student_registration.student_sex='" + ddlGender.SelectedItem.ToString() + "')-count(sa.student_unique_id)) as 'Total Absent'   from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id   AND sr.student_district = '" + ddlDistrict.SelectedItem.ToString() + "'   AND sr.student_mandal='" + ddlMandal.SelectedItem.ToString() + "'   AND sr.student_school='" + ddlSchool.SelectedItem.ToString() + "' AND sr.student_class='" + ddlClass.SelectedItem.ToString() + "' AND sr.student_sex='" + ddlGender.SelectedItem.ToString() + "'  AND sa.AttendanceDate >='" + fromdateValue + "' AND sa.AttendanceDate <='" + fromdateValue + "'   group by sr.student_district ";
+                    sqlQueryString = "SELECT total_students.student_district as District, total_students.student_mandal Mandal,total_students.mandalid as mandalid,total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) AS TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "'   GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal   ORDER BY total_students.mandalid";
                 }
                 //user selected district,mandal school,class
-                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() != "All" && ddlClass.SelectedItem.ToString() != "All" && ddlGender.SelectedItem.ToString() == "All")
+                if (ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() != "All" && ddlClass.SelectedItem.ToString() == "All" )
                 {
-                    sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "') AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration WHERE student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "') AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "'AND student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "'AND student_registration.student_class='" + ddlClass.SelectedItem.ToString() + "' ) as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration   WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "'AND student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "'AND student_registration.student_class='" + ddlClass.SelectedItem.ToString() + "' )-count(sa.student_unique_id)) as 'Total Absent'   from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id   AND sr.student_district = '" + ddlDistrict.SelectedItem.ToString() + "'   AND sr.student_mandal='" + ddlMandal.SelectedItem.ToString() + "'   AND sr.student_school='" + ddlSchool.SelectedItem.ToString() + "' AND sr.student_class='" + ddlClass.SelectedItem.ToString() + "' AND sa.AttendanceDate >='" + fromdateValue + "' AND sa.AttendanceDate <='" + fromdateValue + "'    group by sr.student_district ";
+                    sqlQueryString = "SELECT total_students.student_district as District, total_students.student_mandal Mandal,total_students.mandalid as mandalid,total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) AS TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "'   GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal   ORDER BY total_students.mandalid";
                 }
                 //user selected district,mandal school
-                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() != "All" && ddlGender.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
+                if (ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() != "All" && ddlClass.SelectedItem.ToString() != "All" )
                 {
-                    sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "') AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration WHERE student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "') AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "') as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration   WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_school='" + ddlSchool.SelectedItem.ToString() + "')-count(sa.student_unique_id)) as 'Total Absent'   from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id   AND sr.student_district = '" + ddlDistrict.SelectedItem.ToString() + "'   AND sr.student_mandal='" + ddlMandal.SelectedItem.ToString() + "'   AND sr.student_school='" + ddlSchool.SelectedItem.ToString() + "' AND sa.AttendanceDate >='" + fromdateValue + "' AND sa.AttendanceDate <='" + fromdateValue + "' group by sr.student_district ";
+                    sqlQueryString = "SELECT total_students.student_district as District, total_students.student_mandal Mandal,total_students.mandalid as mandalid,total_students.total_count AS TotalStudents,IFNULL(Present,0) AS TotalPresent, (total_students.total_count - IFNULL(Present,0) ) AS TotalAbsent FROM ( SELECT student_district, student_mandal,mandalid, COUNT(*) total_count FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "' AND student_registration.student_class='"+ddlClass.SelectedItem.ToString()+"' GROUP BY student_district, student_mandal ) total_students LEFT join ( SELECT DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y') attDate, reg.student_district, reg.student_mandal, COUNT(reg.student_unique_id) Present FROM student_attendance att, student_registration reg WHERE reg.student_unique_id = att.student_unique_id AND att.AttendanceDate >='" + fromdateValue + "' AND att.AttendanceDate <='" + fromdateValue + "' AND reg.student_class='" + ddlClass.SelectedItem.ToString() + "'  GROUP BY DATE_FORMAT(att.AttendanceDate,'%d-%b-%Y'), reg.student_district, reg.student_mandal ) Stu_att ON total_students.student_mandal = Stu_att.student_mandal   ORDER BY total_students.mandalid";
                 }
                 //user selected district,mandal
-                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() == "All" && ddlGender.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
+                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() != "All" && ddlSchool.SelectedItem.ToString() == "All"  && ddlClass.SelectedItem.ToString() == "All")
                 {
                     sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration WHERE student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "') AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration ) AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "') as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration   WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND student_registration.student_mandal='" + ddlMandal.SelectedItem.ToString() + "')-count(sa.student_unique_id)) as 'Total Absent'   from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id   AND sr.student_district = '" + ddlDistrict.SelectedItem.ToString() + "'   AND sr.student_mandal='" + ddlMandal.SelectedItem.ToString() + "' AND sa.AttendanceDate >='" + fromdateValue + "' AND sa.AttendanceDate <='" + fromdateValue + "' group by sr.student_district ";
                 }
                 //user selected district,mandal
-                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() == "All" && ddlSchool.SelectedItem.ToString() == "All" && ddlGender.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
+                if (ddlDistrict.SelectedItem.ToString() != "Kadapa" && ddlMandal.SelectedItem.ToString() == "All" && ddlSchool.SelectedItem.ToString() == "All" && ddlClass.SelectedItem.ToString() == "All")
                 {
                     sqlQueryString = "select(sr.student_district) as 'District',(SELECT COUNT(Distinct(student_registration.student_mandal)) FROM student_registration) AS   Mandal,(SELECT COUNT(Distinct(student_registration.student_school)) FROM student_registration ) AS   NOofSchools,(SELECT COUNT(student_registration.student_unique_id) FROM student_registration  WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "') as 'Total Students', count(sa.student_unique_id) as 'Total Present',((SELECT COUNT(student_registration.student_unique_id) FROM student_registration   WHERE student_registration.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' )-count(sa.student_unique_id)) as 'Total Absent'   from student_registration sr,student_attendance sa where sa.inTime is NOT NULL and sr.student_unique_id = sa.student_unique_id   AND sr.student_district = '" + ddlDistrict.SelectedItem.ToString() + "' AND sa.AttendanceDate >='" + fromdateValue + "' AND sa.AttendanceDate <='" + fromdateValue + "' group by sr.student_district ";
                 }
@@ -422,14 +415,14 @@ namespace StudentAttendance
                                 Label2.Visible = true;
                                 Label3.Visible = true;
                                 Label4.Visible = true;
-                                Label5.Visible = true;
+                               // Label5.Visible = true;
                                 Label6.Visible = true;
                                 Label7.Visible = true;
                                 lbldistrict.Text = ddlDistrict.SelectedItem.ToString();
                                 lblmandal.Text = ddlMandal.SelectedItem.ToString();
                                 lblschool.Text = ddlSchool.SelectedItem.ToString();
                                 lblclass.Text = ddlClass.SelectedItem.ToString();
-                                lblgender.Text = ddlGender.SelectedItem.ToString();
+                                //lblgender.Text = ddlGender.SelectedItem.ToString();
                                 lblfromdate.Text = fromdatepicker.Value;
                                 lbltodate.Text = fromdatepicker.Value;//todatepicker.Value;
                                 Panel2.Visible = false;
@@ -443,14 +436,14 @@ namespace StudentAttendance
                                 Label2.Visible = false;
                                 Label3.Visible = false;
                                 Label4.Visible = false;
-                                Label5.Visible = false;
+                                //Label5.Visible = false;
                                 Label6.Visible = false;
                                 Label7.Visible = false;
                                 lbldistrict.Text = "";
                                 lblmandal.Text = "";
                                 lblschool.Text = "";
                                 lblclass.Text = "";
-                                lblgender.Text = "";
+                                //lblgender.Text = "";
                                 lblfromdate.Text = "";
                                 lbltodate.Text = "";
                             }
@@ -479,11 +472,11 @@ namespace StudentAttendance
                 ddlMandal.Text = "All";
                 ddlSchool.Text = "All";
                 ddlClass.Text = "All";
-                ddlGender.Text = "All";
+               // ddlGender.Text = "All";
                 ddlMandal.Enabled = true;
                 ddlSchool.Enabled = false;
                 ddlClass.Enabled = false;
-                ddlGender.Enabled = false;
+                //ddlGender.Enabled = false;
             }
             else
             {
@@ -518,9 +511,9 @@ namespace StudentAttendance
         {
             if (ddlClass.SelectedValue != "All")
             {
-                ddlGender.Enabled = true;
+               // ddlGender.Enabled = true;
             }
-            this.bindGender();
+            //this.bindGender();
         }
 
         protected void grdreport_RowCommand(object sender, GridViewCommandEventArgs e)
