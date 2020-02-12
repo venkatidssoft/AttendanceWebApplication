@@ -156,8 +156,11 @@
     <!-- Chart code -->
     <script>
         am4core.ready(function () {
+            var totalstpuli = '<%=totalstregthpulivendula %>';
+            var totalstbad = '<%=totalstregthbadvel %>';
             var presentspuli = '<%=presentpulivendula %>';
             var absentspuli = '<%=absentpulivendula %>';
+            
             var presentsbad = '<%=presentbadvel%>';
             var absentsbad = '<%=absentbadvel%>';
             // Themes begin
@@ -171,12 +174,12 @@
             // Add data
             chart.data = [{
                 "year": "Pulivendula",
-                "strength": 0.0,
+                "strength": totalstpuli,
                 "present": presentspuli,
                 "absent": absentspuli
             }, {
                 "year": "Badvel",
-                "strength": 0.0,
+                "strength": totalstbad,
                 "present": presentsbad,
                 "absent": absentsbad
             }];
@@ -205,7 +208,7 @@
                 series.columns.template.width = am4core.percent(95);
             }
 
-            createSeries("strength", "TotalStrength", false);
+            createSeries("strength", "TotalStrength", true);
             createSeries("present", "Present", true);
             createSeries("absent", "Absent", true);
 
@@ -221,6 +224,7 @@
         am4core.ready(function () {
             var presents = '<%=present %>';
             var absents = '<%=absent%>';
+            var totalstrengths = '<%=totalstregth %>';
             // Themes begin
             am4core.useTheme(am4themes_dataviz);
             am4core.useTheme(am4themes_animated);
@@ -232,7 +236,7 @@
             // Add data
             chart.data = [{
                 "year": "Pulivendula",
-                "strength": 0.0,
+                "strength": totalstrengths,
                 "present": presents,
                 "absent": absents
             }];

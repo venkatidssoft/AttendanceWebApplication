@@ -87,6 +87,10 @@ namespace StudentAttendance
                                     totalstregthbadvel = sdr["TotalStudents"].ToString();
                                     presentbadvel = sdr["TotalPresent"].ToString();
                                     absentbadvel= sdr["TotalAbsent"].ToString();
+                                    totalstregth = "0";
+                                    present = "0";
+                                    absent = "0";
+
                                 }
                             }
                         }
@@ -171,14 +175,14 @@ namespace StudentAttendance
                                         Panel2.Visible = false;
                                         if (i == 0)
                                         {
-                                            //totalstregthpulivendula = sdr["TotalStudents"].ToString();
+                                            totalstregthpulivendula = sdr["TotalStudents"].ToString();
                                             presentpulivendula = sdr["TotalPresent"].ToString();
                                             absentpulivendula = sdr["TotalAbsent"].ToString();
                                             i++;
                                         }
                                         else
                                         {
-                                            //totalstregthbadvel = sdr["TotalStudents"].ToString();
+                                            totalstregthbadvel = sdr["TotalStudents"].ToString();
                                             presentbadvel = sdr["TotalPresent"].ToString();
                                             absentbadvel = sdr["TotalAbsent"].ToString();
                                         }

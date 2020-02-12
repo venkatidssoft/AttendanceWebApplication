@@ -105,6 +105,20 @@ namespace StudentAttendance
                         {
                             cmdInsert.Parameters.AddWithValue("@outTime", Convert.ToDateTime(this.outTime).ToString("yyyy-MM-dd HH:mm:ss"));
                         }
+
+                        //cmdInsert.Parameters.AddWithValue("@AttendanceDate", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                        //cmdInsert.Parameters.AddWithValue("@AttendanceDate", Convert.ToDateTime(this.AttendanceDate).ToString("yyyy-dd-MM HH:mm:ss"));
+                        //cmdInsert.Parameters.AddWithValue("@inTime", Convert.ToDateTime(this.inTime).ToString("yyyy-dd-MM HH:mm:ss"));
+                        //if (this.outTime == "")
+                        //{
+                        //    cmdInsert.Parameters.AddWithValue("@outTime", null);
+                        //}
+                        //else
+                        //{
+                        //    cmdInsert.Parameters.AddWithValue("@outTime", Convert.ToDateTime(this.outTime).ToString("yyyy-dd-MM HH:mm:ss"));
+                        //}
+
+
                         cmdInsert.Parameters.AddWithValue("@student_unique_id", this.student_unique_id);
                         cmdInsert.ExecuteNonQuery();
                     }
