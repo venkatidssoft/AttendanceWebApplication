@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -94,16 +95,36 @@ namespace StudentAttendance
                         timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
                         //Get date and time in US Mountain Standard Time 
                         dateTime = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo);
+                        string attDate = "",inDate="", outDate = "";
+                        attDate = DateTime.ParseExact(this.AttendanceDate, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+
+                        inDate = DateTime.ParseExact(this.inTime, "dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)
+           .ToString("MM/dd/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+
+                        if (this.outTime == "")
+                        {
+
+                        }
+                        else
+                        {
+                            outDate = DateTime.ParseExact(this.outTime, "dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture)
+          .ToString("MM/dd/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                        }
+                       
+
+
 
                         //cmdInsert.Parameters.AddWithValue("@AttendanceDate", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                        cmdInsert.Parameters.AddWithValue("@AttendanceDate", Convert.ToDateTime(this.AttendanceDate).ToString("yyyy-MM-dd HH:mm:ss"));
-                        cmdInsert.Parameters.AddWithValue("@inTime",Convert.ToDateTime(this.inTime).ToString("yyyy-MM-dd HH:mm:ss"));
+                        cmdInsert.Parameters.AddWithValue("@AttendanceDate", Convert.ToDateTime(attDate).ToString("yyyy-dd-MM HH:mm:ss"));
+                        //cmdInsert.Parameters.AddWithValue("@inTime",Convert.ToDateTime(inDate).ToString("yyyy-MM-dd HH:mm:ss"));
+                       cmdInsert.Parameters.AddWithValue("@inTime", Convert.ToDateTime(inDate).ToString("yyyy-dd-MM HH:mm:ss"));
                         if (this.outTime == "") {
                             cmdInsert.Parameters.AddWithValue("@outTime", null);
                         }
                         else
                         {
-                            cmdInsert.Parameters.AddWithValue("@outTime", Convert.ToDateTime(this.outTime).ToString("yyyy-MM-dd HH:mm:ss"));
+                           // cmdInsert.Parameters.AddWithValue("@outTime", Convert.ToDateTime(outDate).ToString("yyyy-MM-dd HH:mm:ss"));
+                           cmdInsert.Parameters.AddWithValue("@outTime", Convert.ToDateTime(outDate).ToString("yyyy-dd-MM HH:mm:ss"));
                         }
 
                         //cmdInsert.Parameters.AddWithValue("@AttendanceDate", dateTime.ToString("yyyy-MM-dd HH:mm:ss"));
