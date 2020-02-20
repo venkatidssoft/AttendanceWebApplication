@@ -304,6 +304,7 @@
                         <asp:BoundField DataField="mandalid" HeaderText="ID" />
                         <asp:BoundField DataField="District" HeaderText="District Name" />
                         <asp:BoundField DataField="Mandal" HeaderText="Mandal Name" />
+                        <asp:BoundField DataField="udise" HeaderText="Udise" />
                         <%-- <asp:TemplateField HeaderText="No of Mandals">
                             <ItemTemplate>
                                 <asp:LinkButton ID="lblmandal" runat="server" Text='<%# Eval("Mandal") %>'

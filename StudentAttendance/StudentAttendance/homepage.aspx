@@ -4,16 +4,16 @@
     <!-- Styles -->
     <style type="text/css">
         #chartdiv {
-            width: 60%;
+            width: 100%;
             height: 500px;
         }
          #chartdivuser {
-            width: 50%;
+            width: 40%;
             height: 350px;
         }
          .barchart{
              text-align:center;
-             margin-left:24%
+             /*margin-left:24%*/
          }
         .btn-primary {
             color: #fff;
