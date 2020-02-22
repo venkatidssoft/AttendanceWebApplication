@@ -23,6 +23,7 @@ namespace StudentAttendance
         public string sDate,eDate;
         public string fromdateValue;
         string selectAllQuery;
+        string headerText;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -518,116 +519,183 @@ namespace StudentAttendance
 
         protected void grdreport_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
-            //string startDate = "";
-            //string endDate = "";
-            //if (!string.IsNullOrEmpty(fromdatepicker.Value.Trim()))
-            //{
-            //    // CONVERT DATE FORMAT.
-            //    startDate = DateTime.ParseExact(
-            //        fromdatepicker.Value, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
-            //}
-
-
-            //string fromDate = fromdatepicker.Value.ToString();
-            //DateTime fDate = Convert.ToDateTime(startDate);
-
-            //this.fromdateValue = fDate.Year + "-" + fDate.Day.ToString("#00") + "-" + fDate.Month.ToString("#00") + " 00:00:00";
-
-            //Panel2.Visible = true;
-            //MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
-            //string isadminEnable = Session["isAdmin"].ToString();
-            //int RowIndex = Convert.ToInt32(e.CommandArgument.ToString());
-            //string index = Convert.ToString(e.CommandName);
-            //if (isadminEnable == "1")
-            //{
-            //    if (RowIndex == 0)
-            //    {
-                    
-                   
-            //        if (e.CommandName == "totalstudents")
-            //        {
-            //            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_school as School FROM student_registration  where student_mandal='Pulivendula'";
-            //        }
-            //        if (e.CommandName == "totalpresent")
-            //        {
-            //            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='"+this.fromdateValue+ "' AND st.AttendanceDate <='" + this.fromdateValue + "')";
-            //        }
-            //        if (e.CommandName == "totalAbsent")
-            //        {
-            //            detailsQuery = "";
-            //        }
+            string script = "$(document).ready(function () { $('[id*=lbltotalstudents]').click(); });";
+            string startDate = "";
+            string endDate = "";
+            if (!string.IsNullOrEmpty(fromdatepicker.Value.Trim()))
+            {
+                // CONVERT DATE FORMAT.
+                startDate = DateTime.ParseExact(
+                    fromdatepicker.Value, "dd/MM/yyyy", null).ToString("MM/dd/yyyy");
+            }
 
 
-            //    }
-            //    else
-            //    {
-                    
-                  
-            //        if (e.CommandName == "totalstudents")
-            //        {
-            //            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_school as School FROM student_registration  where student_mandal='badvel'";
-            //        }
-            //        if (e.CommandName == "totalpresent")
-            //        {
-            //            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "')";
-            //        }
-            //        if (e.CommandName == "totalAbsent")
-            //        {
-            //            detailsQuery = "";
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    if(Session[""].ToString()== "Pulivendula")
-            //    {
-            //        if (e.CommandName == "totalstudents")
-            //        {
-            //            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Meduim,student_district as District,student_mandal as Mandal,student_school as School FROM student_registration WHERE schoolID='" + Session["id"] + "'";
-            //        }
-            //        if (e.CommandName == "totalpresent")
-            //        {
-            //            detailsQuery = "";
-            //        }
-            //        if (e.CommandName == "totalAbsent")
-            //        {
-            //            detailsQuery = "";
-            //        }
-            //    }
-            //    else
-            //    {
+            string fromDate = fromdatepicker.Value.ToString();
+            DateTime fDate = Convert.ToDateTime(startDate);
 
-            //    }
-                
-               
+            this.fromdateValue = fDate.Year + "-" + fDate.Day.ToString("#00") + "-" + fDate.Month.ToString("#00") + " 00:00:00";
 
-            //}
+            Panel2.Visible = true;
+            MySqlConnection con = new MySqlConnection(GlobalVariables.connString);
+            string isadminEnable = Session["isAdmin"].ToString();
+            int RowIndex = Convert.ToInt32(e.CommandArgument.ToString());
+            string index = Convert.ToString(e.CommandName);
+            
+            if (isadminEnable == "1")
+            {
+                if (RowIndex == 0)
+                {
+                    if (e.CommandName == "totalstudents")
+                    {
+                        if (Convert.ToString(ddlClass.SelectedItem.ToString()) == "All")
+                        {
+                            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Medium,student_school as School FROM student_registration  where student_mandal='Pulivendula'";
+                        }
+                        else
+                        {
+                            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Medium,student_school as School FROM student_registration  where student_mandal='Pulivendula' and student_class='"+ddlClass.SelectedItem.ToString() +"'";
+                        }
+                        
+                        lbldetailreporthead.Text= "Total Students";
+                    }
+                    if (e.CommandName == "totalpresent")
+                    {
+                        if (Convert.ToString(ddlClass.SelectedItem.ToString()) == "All")
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Pulivendula'";
+                        }
+                        else
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Pulivendula' and student_class='" + ddlClass.SelectedItem.ToString() + "'";
+                        }
+                        lbldetailreporthead.Text = "Present List";
+                    }
+                    if (e.CommandName == "totalAbsent")
+                    {
+                        if (Convert.ToString(ddlClass.SelectedItem.ToString()) == "All")
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id NOT IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Pulivendula'";
+                        }
+                        else
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id NOT IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Pulivendula' and student_class='" + ddlClass.SelectedItem.ToString() + "'";
+                        }
+                        lbldetailreporthead.Text = "Absent List";
+                    }
 
-            //using (MySqlCommand cmd = new MySqlCommand(detailsQuery))
-            //{
-            //    using (MySqlDataAdapter sda = new MySqlDataAdapter())
-            //    {
-            //        cmd.Connection = con;
-            //        con.Open();
-            //        sda.SelectCommand = cmd;
 
-            //        using (DataTable dt = new DataTable())
-            //        {
-            //            sda.Fill(dt);
-            //            if (dt.Rows.Count > 0)
-            //            {
-            //                grdDetailReport.DataSource = dt;
-            //                grdDetailReport.DataBind();
-            //            }
-            //            else
-            //            {
-            //                grdDetailReport.DataSource = null;
-            //                grdDetailReport.DataBind();
-            //            }
-            //        }
-            //    }
-            //}
+                }
+                else
+                {
+
+
+                    if (e.CommandName == "totalstudents")
+                    {
+                        if (Convert.ToString(ddlClass.SelectedItem.ToString()) == "All")
+                        {
+
+                            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Medium,student_school as School FROM student_registration  where student_mandal='badvel'";
+                        }
+                        else
+                        {
+                            detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Medium,student_school as School FROM student_registration  where student_mandal='badvel' and student_class='" + ddlClass.SelectedItem.ToString() + "'";
+                        }
+                        lbldetailreporthead.Text = "Total Students";
+                    }
+                    if (e.CommandName == "totalpresent")
+                    {
+                        if (Convert.ToString(ddlClass.SelectedItem.ToString()) == "All")
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Badvel'";
+                        }
+                        else
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Badvel' and student_class='" + ddlClass.SelectedItem.ToString() + "'";
+                        }
+                        lbldetailreporthead.Text = "Present List";
+                    }
+                    if (e.CommandName == "totalAbsent")
+                    {
+                        if (Convert.ToString(ddlClass.SelectedItem.ToString()) == "All")
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id NOT IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Badvel'";
+                        }
+                        else
+                        {
+                            detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id NOT IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Badvel' and student_class='" + ddlClass.SelectedItem.ToString() + "'";
+                        }
+                        lbldetailreporthead.Text = "Absent List";
+                    }
+                }
+            }
+            else
+            {
+                if (Session["username"].ToString() == "Pulivendula")
+                {
+                    if (e.CommandName == "totalstudents")
+                    {
+                        detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Medium,student_school as School FROM student_registration  where student_mandal='Pulivendula'";
+                        lbldetailreporthead.Text = "Total Students";
+                    }
+                    if (e.CommandName == "totalpresent")
+                    {
+                        detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Pulivendula'";
+                        lbldetailreporthead.Text = "Present List";
+                    }
+                    if (e.CommandName == "totalAbsent")
+                    {
+                        detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id NOT IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Pulivendula'";
+                        lbldetailreporthead.Text = "Absent List";
+                    }
+
+                }
+                else
+                {
+                    if (e.CommandName == "totalstudents")
+                    {
+                        detailsQuery = "SELECT student_unique_id as ID,student_name as Name,student_class as Class,student_medium as Medium,student_school as School FROM student_registration  where student_mandal='badvel'";
+                        lbldetailreporthead.Text = "Total Students";
+                    }
+                    if (e.CommandName == "totalpresent")
+                    {
+                        detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Badvel'";
+                        lbldetailreporthead.Text = "Present List";
+                    }
+                    if (e.CommandName == "totalAbsent")
+                    {
+                        detailsQuery = "SELECT sr.student_unique_id as ID,sr.student_name as Name,sr.student_class as Class,sr.student_medium as Medium,sr.student_school as School FROM student_registration sr WHERE sr.student_unique_id NOT IN (SELECT st.student_unique_id from student_attendance st  WHERE st.AttendanceDate >='" + this.fromdateValue + "' AND st.AttendanceDate <='" + this.fromdateValue + "') AND sr.student_mandal='Badvel'";
+                        lbldetailreporthead.Text = "Absent List";
+                    }
+                }
+
+
+
+            }
+
+            using (MySqlCommand cmd = new MySqlCommand(detailsQuery))
+            {
+                using (MySqlDataAdapter sda = new MySqlDataAdapter())
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    sda.SelectCommand = cmd;
+
+                    using (DataTable dt = new DataTable())
+                    {
+                        sda.Fill(dt);
+                        if (dt.Rows.Count > 0)
+                        {
+                            grdDetailReport.DataSource = dt;
+                            grdDetailReport.DataBind();
+                        }
+                        else
+                        {
+                            grdDetailReport.DataSource = null;
+                            grdDetailReport.DataBind();
+                        }
+                    }
+                }
+            }
         }
 
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -642,7 +710,7 @@ namespace StudentAttendance
                 HtmlTextWriter hw = new HtmlTextWriter(sw);
 
                 //To Export all pages
-                // GridView2.AllowPaging = false;
+                grdreport.AllowPaging = false;
                 this.bindgridview();
 
                 grdreport.HeaderRow.BackColor = Color.White;

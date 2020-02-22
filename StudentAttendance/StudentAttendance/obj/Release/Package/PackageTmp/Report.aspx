@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="StudentAttendance.Report" EnableEventValidation="false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="StudentAttendance.Report" EnableEventValidation="false" ValidateRequest="false" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript" src="Scripts/jquery-1.8.3.min.js"></script>
@@ -84,6 +84,7 @@
             ShowProgress();
         });
     </script>
+
     <style type="text/css">
         .modal {
             position: fixed;
@@ -294,13 +295,14 @@
                 </div>--%>
             </div>
             <br />
-            <%--<div class="row" style="text-align: right; visibility:hidden">
+            <%--<div class="row" style="text-align: right; ">
                 <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/excel.png" OnClick="ImageButton1_Click"  />
             </div>--%>
             <div class="row">
                 <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%" OnRowCommand="grdreport_RowCommand"
                     DataKeyNames="mandalid">
                     <Columns>
+
                         <asp:BoundField DataField="mandalid" HeaderText="ID" />
                         <asp:BoundField DataField="District" HeaderText="District Name" />
                         <asp:BoundField DataField="Mandal" HeaderText="Mandal Name" />
@@ -357,7 +359,8 @@
             <br />
             <asp:Panel ID="Panel2" runat="server">
                 <div class="row">
-                    <h3>Detail Report</h3>
+                    <h3>
+                        <asp:Label ID="lbldetailreporthead" runat="server" Text=""></asp:Label></h3>
                 </div>
                 <%--  <div class="row" style="text-align: right;visibility:hidden">
                     <asp:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/Images/excel.png" OnClick="ImageButton2_Click" />
@@ -367,19 +370,33 @@
                     <div style="height: 30px; width: 100%; margin: 0; padding: 0">
                         <table rules="all" border="1" id="tblHeader"
                             style="font-family: Arial; font-size: 10pt; width: 100%; color: black; border-collapse: collapse; height: 100%;">
-
                             <tr>
-                                <td style="width: 89px; text-align: center">ID</td>
-                                <td style="width: 298px; text-align: center">Name</td>
-                                <td style="width: 65px; text-align: center">Class</td>
-                                <td style="width: 22px; text-align: center">Medium</td>
-                                <td style="width: 228px; text-align: center">School</td>
+                                <td style="width: 92px; text-align: left; font-weight: 600;">SNo</td>
+                                <td style="width: 92px; text-align: left; font-weight: 600;">Child ID</td>
+                                <td style="width: 311px; text-align: left; font-weight: 600;">Name</td>
+                                <td style="width: 60px; text-align: left; font-weight: 600;">Class</td>
+                                <td style="width: 22px; text-align: left; font-weight: 600;">Medium</td>
+                                <td style="width: 228px; text-align: left; font-weight: 600;">School</td>
                             </tr>
                         </table>
                     </div>
                     <asp:Panel ID="Panel1" runat="server" Height="300px" ScrollBars="Vertical">
-
-                        <asp:GridView ID="grdDetailReport" runat="server" Width="1000%" CssClass="auto-style1" ShowHeader="false"></asp:GridView>
+                        <asp:GridView ID="grdDetailReport" runat="server" Width="1000%" CssClass="auto-style1" ShowHeader="false" AutoGenerateColumns="false">
+                            <Columns>
+                                <asp:TemplateField ItemStyle-Width="91px" >
+                                    <ItemTemplate>
+                                        <span>
+                                            <%#Container.DataItemIndex + 1%>
+                                        </span>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="ID" HeaderText="ID" ItemStyle-Width="91px" />
+                                <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-Width="306px" />
+                                <asp:BoundField DataField="Class" HeaderText="Class" ItemStyle-Width="60px" />
+                                <asp:BoundField DataField="Medium" HeaderText="Medium" ItemStyle-Width="55px" />
+                                <asp:BoundField DataField="School" HeaderText="School" ItemStyle-Width="219px" />
+                            </Columns>
+                        </asp:GridView>
                     </asp:Panel>
                 </div>
             </asp:Panel>
