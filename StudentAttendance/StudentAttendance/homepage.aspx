@@ -667,7 +667,7 @@
     </script>
 
     <div class="jumbotron">
-        <h3 class="login-sec">Attendance Report</h3>
+        <h3 class="login-sec">Dashboard</h3>
     </div>
     <div class="row">
         <div class="col-md-2">

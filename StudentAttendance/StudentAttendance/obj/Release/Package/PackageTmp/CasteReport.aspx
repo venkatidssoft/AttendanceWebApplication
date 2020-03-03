@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="StudentAttendance.Report" EnableEventValidation="false" ValidateRequest="false" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CasteReport.aspx.cs" Inherits="StudentAttendance.CasteReport" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript" src="Scripts/jquery-1.8.3.min.js"></script>
+      <script type="text/javascript" src="Scripts/jquery-1.8.3.min.js"></script>
     <%--<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>--%>
     <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
     <link rel="stylesheet" href="Content/bootstrap.min.css" media="screen" />
@@ -63,6 +62,7 @@
             font-size: 30px;
             color: #DE6262;
         }
+ 
     </style>
 
     <%--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
@@ -113,7 +113,7 @@
             padding-top: 0px;
         }
 
-        .jumbotron {
+       .jumbotron {
     padding-right: 60px;
     padding-left: 0px !important;
 }
@@ -195,7 +195,7 @@
     </script>
 
     <div class="jumbotron">
-        <h3 class="login-sec">Attendance Report</h3>
+        <h3 class="login-sec">Caste Report</h3>
     </div>
 
     <div class="row">
@@ -245,17 +245,11 @@
             </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
-                    Select Class
-            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged">
+                    Select Caste
+            <asp:DropDownList ID="ddlcaste" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True">
                 <asp:ListItem>All</asp:ListItem>
             </asp:DropDownList>
                 </div>
-                <%--<div class="col-md-2">
-                    Select Gender
-            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-controls" Enabled="false" AutoPostBack="True">
-                <asp:ListItem>All</asp:ListItem>
-            </asp:DropDownList>
-                </div>--%>
             </div>
             <br />
             <br />
@@ -284,14 +278,14 @@
                     <asp:Label ID="Label3" runat="server" Text="School : "></asp:Label>
                     <asp:Label ID="lblschool" runat="server"></asp:Label>
                 </div>
-                <div class="col-md-2">
-                    <asp:Label ID="Label4" runat="server" Text="Class : "></asp:Label>
-                    <asp:Label ID="lblclass" runat="server"></asp:Label>
-                </div>
                 <%--<div class="col-md-2">
-                    <asp:Label ID="Label5" runat="server" Text="Selected Gender : "></asp:Label>
-                    <asp:Label ID="lblgender" runat="server"></asp:Label>
+                    <asp:Label ID="Label4" runat="server" Text="Gender : "></asp:Label>
+                    <asp:Label ID="lblclass" runat="server"></asp:Label>
                 </div>--%>
+                <div class="col-md-2">
+                    <asp:Label ID="Label5" runat="server" Text="Caste : "></asp:Label>
+                    <asp:Label ID="lblcaste" runat="server"></asp:Label>
+                </div>
             </div>
             <br />
             <%--<div class="row" style="text-align: right; ">
@@ -299,7 +293,7 @@
             </div>--%>
             <div class="row">
                 <asp:GridView ID="grdreport" runat="server" ShowHeaderWhenEmpty="true" AutoGenerateColumns="false" EmptyDataText="No Record Found." Width="100%" OnRowCommand="grdreport_RowCommand"
-                    DataKeyNames="mandalid">
+                    DataKeyNames="mandalid" >
                     <Columns>
 
                         <asp:BoundField DataField="mandalid" HeaderText="ID" />
@@ -349,6 +343,7 @@
 
                     </Columns>
                 </asp:GridView>
+                <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
                 <%--// Associated Controls--%>
                 <asp:HiddenField ID="hfAction" runat="server" />
                 <asp:HiddenField ID="hfRow" runat="server" />
@@ -374,7 +369,7 @@
                                 <td style="width: 92px; text-align: left; font-weight: 600;">Child ID</td>
                                 <td style="width: 311px; text-align: left; font-weight: 600;">Name</td>
                                 <td style="width: 60px; text-align: left; font-weight: 600;">Class</td>
-                                <td style="width: 22px; text-align: left; font-weight: 600;">Medium</td>
+                                <td style="width: 22px; text-align: left; font-weight: 600;">Caste</td>
                                 <td style="width: 228px; text-align: left; font-weight: 600;">School</td>
                             </tr>
                         </table>
@@ -392,7 +387,7 @@
                                 <asp:BoundField DataField="ID" HeaderText="ID" ItemStyle-Width="91px" />
                                 <asp:BoundField DataField="Name" HeaderText="Name" ItemStyle-Width="306px" />
                                 <asp:BoundField DataField="Class" HeaderText="Class" ItemStyle-Width="60px" />
-                                <asp:BoundField DataField="Medium" HeaderText="Medium" ItemStyle-Width="55px" />
+                                <asp:BoundField DataField="Caste" HeaderText="Caste" ItemStyle-Width="55px" />
                                 <asp:BoundField DataField="School" HeaderText="School" ItemStyle-Width="219px" />
                             </Columns>
                         </asp:GridView>

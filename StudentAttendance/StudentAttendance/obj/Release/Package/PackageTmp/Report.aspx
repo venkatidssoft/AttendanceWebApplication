@@ -84,7 +84,6 @@
             ShowProgress();
         });
     </script>
-
     <style type="text/css">
         .modal {
             position: fixed;
@@ -115,9 +114,9 @@
         }
 
         .jumbotron {
-            padding-top: 1px;
-            padding-bottom: 2px;
-        }
+    padding-right: 60px;
+    padding-left: 0px !important;
+}
 
         body {
             font-family: Arial;

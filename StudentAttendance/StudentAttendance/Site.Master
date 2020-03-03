@@ -29,7 +29,7 @@
         .p-footer {
             margin: 14px 0 10px;
             text-align: center;
-            font-size:14px;
+            font-size: 14px;
         }
 
         .navbar-inverse {
@@ -40,9 +40,51 @@
             .navbar-inverse .navbar-brand {
                 color: Black;
             }
+
             .navbar-inverse .navbar-nav > li > a {
-    color: black;
-}
+                color: black;
+            }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(to bottom, #FFB88C, #DE6262);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            text-align: center;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        a {
+            /*color: black !important;*/
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +123,19 @@
                         <li><a runat="server" href="homepage.aspx">Dashboard</a></li>
                         <li><a id="studentUpload" runat="server" href="StudentsUpload.aspx">Student Details Upload</a></li>
                         <li><a id="AttendanceUpload" runat="server" href="AttendanceUpload.aspx">Attendance Upload</a></li>
-                        <li><a runat="server" href="Report.aspx">Report</a></li>
+                        <li>
+                            <div class="dropdown">
+                                <a style="color:black;" id="A7" runat="server" href="#">Reports</a>
+                                <div class="dropdown-content">
+                                    <a id="A8" runat="server" href="Report.aspx">Day Report</a>
+                                    <a id="A9" runat="server" href="CasteReport.aspx">Caste Report</a>
+                                    <a id="A17" runat="server" href="GenderReport.aspx">Gender Report</a>
+                                </div>
+                            </div>
+                        </li>
+                        <%--<li><a runat="server" href="Report.aspx">Report</a></li>
+                        <li><a runat="server" href="CasteReport.aspx">Caste Report</a></li>
+                        <li><a runat="server" href="GenderReport.aspx">Gender Report</a></li>--%>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                         <li><a runat="server" href="Login.aspx">Logout</a></li>
                     </ul>

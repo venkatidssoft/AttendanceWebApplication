@@ -23,7 +23,7 @@
             background: linear-gradient(to bottom, #FFB88C, #DE6262); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             float: left;
             width: 100%;
-            padding: 94px 0;
+            padding: 15px 0;
         }
 
         .banner-sec {
@@ -193,6 +193,33 @@
             /*background-color: White;*/
             z-index: 999;
         }
+
+        #container {
+            width: 100%;
+            text-align: center;
+            height: 100px;
+        }
+
+        #left {
+            float: left;
+            width: 105px;
+        }
+
+        #center {
+            display: inline-block;
+            margin: 16px auto;
+            width: 365px;
+            font-size: 31px;
+            margin-left:25%;
+            font-weight:bold;
+        }
+
+        #right {
+            float: right;
+            width: 100px;
+            height: 87px;
+            margin-right: 23%;
+        }
     </style>
 </head>
 <body>
@@ -201,9 +228,27 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
     <section class="login-block">
-        <div style="font-size: 50px; text-align: center; color: ##DE6262; font-weight: 600; margin-bottom: 4px; margin-top: -34px;">
-            IDS eAttendance System    
+        <%--<div>
+
+            <div>
+                 <img src="Images/company-logo.jpg" alt="" style="width:25px;"/>
+            </div>
+            <div style="font-size: 50px; text-align: center; color: #DE6262; font-weight: 600; margin-bottom: 4px; margin-top: -34px;">
+                IDS eAttendance System    
+            </div>
+            <div>
+
+            </div>
+        </div>--%>
+
+        <div id="container">
+            <div id="left">
+                <img src="Images/IDS.png" alt="" style="width: 96px; margin-left: 189%;height:108px" /></div>
+            <div id="center">IDS eAttendance System </div>
+            <div id="right">
+                <img src="Images/aplogo.png" alt="" style="width: 96px; margin-left: 165%;" /></div>
         </div>
+
         <br />
         <img src="Images/lodingfinal.gif" alt="" class="loading" />
         <div class="container">
